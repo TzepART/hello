@@ -5,35 +5,47 @@ import java.awt.*;
 import javax.swing.*;
 
 
-public class Main {
+public class Main extends JPanel {
 
     private static final double COEF = 3.7854;
 
+    private String message;
+
 
     public static void main(String[] args) {
-        double liters, gallons;
 
-        int count = getCount();
+//        int result = getGloneToLitres();
+        int result = 0;
+        String message;
 
-        if(count > 0){
-            for(gallons = 1; gallons < count; gallons++){
-                liters = gallons*COEF;
-                System.out.println(gallons+" галонам соответствует "+liters+" литров;");
-                if(gallons%10 == 0){
-                    System.out.println();
-                }
-            }
+
+        if(result == 0){
+            message = "Все клевански!!!";
+        }else{
+            message = "Что-то пошло не так";
         }
 
-        new Main().view();
+        Main main = new Main();
 
+        main.view(message);
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     /**
      * @return int
      */
-    private static int getCount(){
+    private static int getGloneToLitres(){
+
         Scanner reader = new Scanner(System.in);  // Reading from System.in
+
+        double liters, gallons;
         int count = 0;
         int countInput = 0;
 
@@ -59,27 +71,41 @@ public class Main {
             }
         }
 
-        return count;
+        if(count > 0){
+            for(gallons = 1; gallons < count; gallons++){
+                liters = gallons*COEF;
+                System.out.println(gallons+" галонам соответствует "+liters+" литров;");
+                if(gallons%10 == 0){
+                    System.out.println();
+                }
+            }
+        }
+
+        return 0;
     }
 
-    private void view(){
-        JFrame frame = new JFrame("Test");
-        frame.setBounds(0, 0,400,500);
-        frame.setVisible(true);
+    private void view(String message){
+
+        this.message = message;
+        JFrame frame = new JFrame("Result");
+        Main main = new Main();
+        main.setMessage(message);
+        frame.getContentPane().add(main);
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(200,200);
+        frame.setVisible(true);
+    }
 
-        JPanel contentPane = new JPanel(){
-            Graphics2D g2;
+    public void paint(Graphics g) {
+        Dimension d = this.getPreferredSize();
+        int fontSize = 20;
 
-            protected void paintComponent(Graphics g){
-                super.paintComponent(g);
-                g2=(Graphics2D)g;
-                g2.setColor(Color.BLACK);
-                g2.drawLine(20, 20, 360, 20);
-            }
-        };
+        g.setFont(new Font("TimesRoman", Font.PLAIN, fontSize));
 
-        frame.setContentPane(contentPane);
+        g.setColor(Color.black);
+
+        g.drawString(this.getMessage(), 10, 20);
     }
 
 }
