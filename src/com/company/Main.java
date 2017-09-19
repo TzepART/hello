@@ -7,7 +7,6 @@ import javax.swing.*;
 
 public class Main extends JPanel {
 
-    private static final double COEF = 3.7854;
 
     private String message;
 
@@ -17,8 +16,9 @@ public class Main extends JPanel {
         String message;
         Scanner reader = new Scanner(System.in);  // Reading from System.in
 
-        System.out.println("Введи размер списка переводимых галлонов (но не больше 50):");
-        message = reader.nextLine(); // Scans the next token of the input as an int.
+        System.out.println("Введи свое сообщение миру!!!))");
+        System.out.println();
+        message = reader.nextLine();
 
         Main main = new Main();
 
@@ -38,9 +38,7 @@ public class Main extends JPanel {
         int fontSize = 20;
 
         g.setFont(new Font("TimesRoman", Font.PLAIN, fontSize));
-
         g.setColor(Color.black);
-
         g.drawString(this.getMessage(), 10, 20);
     }
 
