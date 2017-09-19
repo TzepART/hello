@@ -1,4 +1,4 @@
-package com.company;
+package tzepart.test;
 
 public class Sound {
 
