@@ -15,24 +15,21 @@ public class Main extends JPanel {
     public static void main(String[] args) {
 
         String message;
-        int result = getGloneToLitres();
+        Scanner reader = new Scanner(System.in);  // Reading from System.in
 
-        if(result == 0){
-            message = "Все клевански!!!";
-        }else{
-            message = "Что-то пошло не так";
-        }
+        System.out.println("Введи размер списка переводимых галлонов (но не больше 50):");
+        message = reader.nextLine(); // Scans the next token of the input as an int.
 
         Main main = new Main();
 
         main.viewMessage(message);
     }
 
-    public String getMessage() {
+    private String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    private void setMessage(String message) {
         this.message = message;
     }
 
@@ -47,51 +44,6 @@ public class Main extends JPanel {
         g.drawString(this.getMessage(), 10, 20);
     }
 
-    /**
-     * @return int
-     */
-    private static int getGloneToLitres(){
-
-        Scanner reader = new Scanner(System.in);  // Reading from System.in
-
-        double liters, gallons;
-        int count = 0;
-        int countInput = 0;
-
-        while(count == 0 || countInput < 3){
-            System.out.println("Введи размер списка переводимых галлонов (но не больше 50):");
-            count = reader.nextInt(); // Scans the next token of the input as an int.
-            if(count > 50){
-                count = 0;
-                System.out.println("Вам не захочется просматривать такой длинный список :)");
-            }else if(count < 0){
-                count = 0;
-                System.out.println("Редко встретишь отрциательное количество литров :)");
-            }else if(count == 0){
-                System.out.println("Кому интересно пересчитывать 0 колличество галлонов?");
-            }else{
-                System.out.println("Получи результат!)))");
-            }
-
-            countInput++;
-            if(countInput == 3 && count == 0){
-                System.out.println("Как жаль что вы так и не опредилилсь");
-                break;
-            }
-        }
-
-        if(count > 0){
-            for(gallons = 1; gallons < count; gallons++){
-                liters = gallons*COEF;
-                System.out.println(gallons+" галонам соответствует "+liters+" литров;");
-                if(gallons%10 == 0){
-                    System.out.println();
-                }
-            }
-        }
-
-        return 0;
-    }
 
     private void viewMessage(String message){
 
