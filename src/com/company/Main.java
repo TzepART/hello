@@ -14,10 +14,8 @@ public class Main extends JPanel {
 
     public static void main(String[] args) {
 
-//        int result = getGloneToLitres();
-        int result = 0;
         String message;
-
+        int result = getGloneToLitres();
 
         if(result == 0){
             message = "Все клевански!!!";
@@ -27,7 +25,7 @@ public class Main extends JPanel {
 
         Main main = new Main();
 
-        main.view(message);
+        main.viewMessage(message);
     }
 
     public String getMessage() {
@@ -36,6 +34,17 @@ public class Main extends JPanel {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public void paint(Graphics g) {
+        Dimension d = this.getPreferredSize();
+        int fontSize = 20;
+
+        g.setFont(new Font("TimesRoman", Font.PLAIN, fontSize));
+
+        g.setColor(Color.black);
+
+        g.drawString(this.getMessage(), 10, 20);
     }
 
     /**
@@ -84,7 +93,7 @@ public class Main extends JPanel {
         return 0;
     }
 
-    private void view(String message){
+    private void viewMessage(String message){
 
         this.message = message;
         JFrame frame = new JFrame("Result");
@@ -97,15 +106,5 @@ public class Main extends JPanel {
         frame.setVisible(true);
     }
 
-    public void paint(Graphics g) {
-        Dimension d = this.getPreferredSize();
-        int fontSize = 20;
-
-        g.setFont(new Font("TimesRoman", Font.PLAIN, fontSize));
-
-        g.setColor(Color.black);
-
-        g.drawString(this.getMessage(), 10, 20);
-    }
 
 }
