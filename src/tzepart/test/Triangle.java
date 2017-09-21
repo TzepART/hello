@@ -1,5 +1,7 @@
 package tzepart.test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -13,10 +15,18 @@ public class Triangle {
 //        double[] sides = getSidesFromArguments(args);
         double[] sides = getSidesFromConsole();
 
-        checkAvailableTriangle(sides);
+        try {
+            checkAvailableTriangle(sides);
+        }catch (Error e){
+            System.out.println(e.getMessage());
+        }
 
     }
 
+    /**
+     * Метод отвечающий обработку данных из параметров
+     * @return double[]
+     * */
     private static double[] getSidesFromArguments(String[] args) {
         double[] sides = new double[args.length];
         int i = 0;
@@ -30,7 +40,7 @@ public class Triangle {
     }
 
     /**
-     * method for input data
+     * Метод отвечающий за ввод данных
      * @return double[]
      * */
     private static double[] getSidesFromConsole() {
@@ -69,27 +79,55 @@ public class Triangle {
 
 
     /**
-     *
-     * @return int
+     * Проверяет возможность данных массива быть треугольником
      */
-    private static int checkAvailableTriangle(double[] sides){
+    private static void checkAvailableTriangle(double[] sides){
 
-        double a = sides[0];
-        double b = sides[1];
-        double c = sides[2];
+        if(sides.length == 3){
 
+            //получим возможные ошибки
+            String[] errors = getErrorsByArraySides(sides);
 
-        if(
-                (a < (b + c) && a > (b - c)) &&
-                (b < (a + c) && b > (a - c)) &&
-                (c < (a + b) && c > (a - b))
-        ){
-            System.out.println("Это может быть треугольником!)");
-        }else{
-            System.out.println("Это не может быть треугольником!(((");
+            if(errors.length == 0){
+                System.out.println("Это может быть треугольником!)");
+            }else{
+                System.out.println("Это не может быть треугольником!(((");
+                for (String error: errors) {
+                    System.out.println(error);
+                }
+            }
+        }else {
+            throw new Error("Переданный массив не может быть сторонами треугольника");
         }
 
-        return 0;
+    }
+
+    /**
+    * Возваращает массив с ошибками
+    * */
+    private static String[] getErrorsByArraySides(double[] sides){
+
+        // dynamically hold the instances
+        List<String> list = new ArrayList<String>();
+
+
+        for(int i = 0; i < sides.length; i++) {
+            double checkSide = sides[i];
+            double summ = 0;
+
+            int step = 0;
+            for (double side: sides) {
+                if(step != i){
+                    summ += side;
+                }
+                step++;
+            }
+            if(checkSide > summ){
+                list.add("Ошибка: Сторона "+(i+1)+" больше суммы двух других сторон;");
+            }
+        }
+
+        return list.toArray( new String[list.size()] );
     }
 
 }
