@@ -1,5 +1,6 @@
 package tzepart.test;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -28,17 +29,39 @@ public class Triangle {
         return sides;
     }
 
+    /**
+     * method for input data
+     * @return double[]
+     * */
     private static double[] getSidesFromConsole() {
 
         double[] sides = new double[COUNT_SIDE];
-        Scanner reader = new Scanner(System.in);  // Reading from System.in
 
         int i = 0;
 
         System.out.println("Введи стороны треугольника:");
         while(i < COUNT_SIDE){
-            sides[i] = reader.nextDouble(); // Scans the next token of the input as an int.
-            i++;
+
+            System.out.println("Введи размер стороны - "+(i+1));
+            double side;
+
+            Scanner reader = new Scanner(System.in);  // Reading from System.in
+//            double side = reader.nextDouble();
+
+            try{
+                side = reader.nextDouble();
+                if(side < 0){
+                    System.out.println("Размер не может быть отрицательным!");
+                }else if(side == 0){
+                    System.out.println("Сторона не может быть равна 0");
+                }else{
+                    sides[i] = side; // Scans the next token of the input as an int.
+                    i++;
+                }
+
+            }catch (InputMismatchException t){
+                System.out.println("Введены неккоректные данные");
+            }
         }
 
         return sides;
@@ -46,6 +69,7 @@ public class Triangle {
 
 
     /**
+     *
      * @return int
      */
     private static int checkAvailableTriangle(double[] sides){
