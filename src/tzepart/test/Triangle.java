@@ -28,15 +28,43 @@ public class Triangle {
      * @return double[]
      * */
     private static double[] getSidesFromArguments(String[] args) {
-        double[] sides = new double[args.length];
+//        double[] sides = new double[args.length];
+        List<Number> sides = new ArrayList<Number>();
+
+
         int i = 0;
 
         for (String arg: args) {
-            sides[i] = Double.parseDouble(arg);
+
+            try {
+                double side = Double.parseDouble(arg);
+
+                if(side < 0){
+                    System.out.println("Сторона "+i+": не может быть отрицательным!");
+                }else if(side == 0){
+                    System.out.println("Сторона "+i+": не может быть равна 0");
+                }else{
+                    sides.add(side); // Scans the next token of the input as an int.
+                }
+            }catch (NumberFormatException e){
+                System.out.println("Сторона "+i+": Введены неккоректные данные");
+            }
+
             i++;
         }
 
-        return sides;
+//        return sides;
+
+        double dSides[] = new double[sides.size()];
+
+        int n = 0;
+        for (Number side: sides) {
+            dSides[n] = side.doubleValue();
+            n++;
+        }
+
+        return dSides;
+
     }
 
     /**
@@ -97,7 +125,8 @@ public class Triangle {
                 }
             }
         }else {
-            throw new Error("Переданный массив не может быть сторонами треугольника");
+//            throw new Error("Переданный массив не может быть сторонами треугольника");
+            throw new Error("Это не может быть треугольником!(((");
         }
 
     }
