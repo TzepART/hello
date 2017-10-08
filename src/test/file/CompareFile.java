@@ -7,7 +7,6 @@ public class CompareFile {
 
     public static void main(String args[]){
         int i = 0, j = 0;
-        System.out.println(System.getProperty("user.dir"));
 
         if (args.length != 2){
             System.out.println("Don't correct count file names;");
