@@ -1,4 +1,4 @@
-package task.oop.task2;
+package task.task2;
 
 
 public class Main {

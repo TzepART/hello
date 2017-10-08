@@ -1,4 +1,4 @@
-package task.oop.task2;
+package task.task2;
 
 class B extends A implements I2{
 
