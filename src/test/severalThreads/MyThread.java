@@ -2,7 +2,7 @@ package test.severalThreads;
 
 class MyThread implements Runnable{
 
-   private Thread thread;
+   public Thread thread;
 
     MyThread(String threadName){
         this.thread = new Thread(this, threadName);
