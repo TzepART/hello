@@ -1,11 +1,11 @@
-package task.oop.task1;
+package tzepart.test;
 
 import java.util.Scanner;
 import java.awt.*;
 import javax.swing.*;
 
 
-public class Main extends JPanel {
+public class FirstMessage extends JPanel {
 
 
     private String message;
@@ -20,7 +20,7 @@ public class Main extends JPanel {
         System.out.println();
         message = reader.nextLine();
 
-        Main main = new Main();
+        FirstMessage main = new FirstMessage();
 
         main.viewMessage(message);
     }
@@ -47,7 +47,7 @@ public class Main extends JPanel {
 
         this.message = message;
         JFrame frame = new JFrame("Result");
-        Main main = new Main();
+        FirstMessage main = new FirstMessage();
         main.setMessage(message);
         frame.getContentPane().add(main);
 
