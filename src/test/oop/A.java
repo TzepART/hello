@@ -1,8 +1,8 @@
-package task2.oop;
+package test.oop;
 
-public class A implements I1{
+class A implements I1{
 
-    public void a1(){
+    void a1(){
         String metodName = new Object(){}.getClass().getEnclosingMethod().getName();
         System.out.println("Class name - "+this.getClass().getSimpleName()+" Method name - "+metodName);
     }

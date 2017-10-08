@@ -1,4 +1,4 @@
-package task2.oop;
+package test.oop;
 
 
 public class Main {
