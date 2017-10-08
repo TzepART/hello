@@ -1,4 +1,4 @@
-package test.oop;
+package task.oop.task2;
 
 public interface I2 {
 

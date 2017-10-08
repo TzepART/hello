@@ -1,4 +1,4 @@
-package tzepart.test;
+package task.oop.task1;
 
 import java.util.Scanner;
 import java.awt.*;
