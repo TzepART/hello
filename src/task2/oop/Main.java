@@ -13,11 +13,12 @@ public class Main {
 
         I1 objectI1;
 
-        objectI1 = (B) objectB;//Явное приведение
+        objectI1 = objectB;
         objectI1.i1();
-        objectB.b1();
-        objectB.a1();
-        objectB.i2();
+
+        ((B)objectI1).b1();
+        ((B)objectI1).a1();
+        ((B)objectI1).i2();
     }
 
 }
