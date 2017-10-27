@@ -2,24 +2,17 @@ package task.task3;
 
 class SecondThread extends Thread{
 
-    IncrementClass ttOb;
+    private IncrementClass incrementObj;
+    static Integer count = 10;
 
-    public SecondThread(String name, IncrementClass tt) {
-        this.ttOb = tt;
-        this.start();
+    public SecondThread(String name, IncrementClass incrementObj) {
+        this.incrementObj = incrementObj;
     }
 
     @Override
-    public void run() {
-        System.out.println(this.getName() + " - run thread");
-        try{
-            for(int count=0; count < 10; count++){
-                Thread.sleep(400);
-                System.out.println("In "+this.getName() + ", counter: "+count);
-            }
-        }catch (InterruptedException exc){
-            System.out.println(this.getName() + " - crash thread");
+    public void run(){
+        for (int i = 1; i <= count; i++) {
+            incrementObj.inc100(i);
         }
-        System.out.println(this.getName() + " - end thread");
     }
 }

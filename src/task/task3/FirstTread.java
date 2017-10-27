@@ -3,26 +3,18 @@ package task.task3;
 public class FirstTread implements Runnable {
 
     Thread thread;
-    IncrementClass ttOb;
+    private IncrementClass incrementObj;
+    static Integer count = 5;
 
-    public FirstTread(String name, IncrementClass tt) {
+    public FirstTread(String name, IncrementClass incrementObj) {
         this.thread = new Thread(this, name);
-        this.ttOb = tt;
-        this.thread.start();
+        this.incrementObj = incrementObj;
     }
 
     @Override
-    public void run() {
-        if (this.thread.getName().compareTo("Tick") == 0){
-            for(int i=0; i<5; i++){
-                ttOb.tick(true);
-            }
-            ttOb.tick(false);
-        }else {
-            for(int i=0; i<5; i++){
-                ttOb.tock(true);
-            }
-            ttOb.tock(false);
+    public void run(){
+        for (int i = 1; i <= count; i++) {
+            incrementObj.inc10(i);
         }
     }
 }

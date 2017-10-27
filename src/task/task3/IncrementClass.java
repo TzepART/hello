@@ -2,48 +2,36 @@ package task.task3;
 
 public class IncrementClass {
 
-    String value;
+    private int value=0;
 
-    synchronized void tick(boolean running){
-        if (!running){
-            value = "ticked";
-            notify(); //notify waiting threads
-            return;
-        }
+    synchronized public void inc10(Integer currentCount) {
+        value = value+10;
+        System.out.println("Значение переменной: " + value);
+        notify();
 
-        System.out.print("Tick ");
-
-        value = "ticked"; //set current value after takt "Tick"
-        notify(); //allow execute method tock()
         try {
-            while (!value.equals("tocked")){
-                wait(); // wait end method tock()
+            if(currentCount < SecondThread.count){
+                wait();
             }
-        }catch (InterruptedException exc){
-            System.out.print("Interrupted thread");
+        }
+        catch (InterruptedException e) {
+            System.out.println("Interrupted main thread");
         }
     }
 
+    synchronized public void inc100(Integer currentCount) {
 
-    synchronized void tock(boolean running){
-        if (!running){
-            value = "tocked";
-            notify(); //notify waiting threads
-            return;
-        }
-
-        System.out.println("Tock ");
-
-        value = "tocked"; //set current value after takt "Tick"
-        notify(); //allow execute method tick()
+        value = value+100;
+        System.out.println("Значение переменной: " + value);
+        notify();
         try {
-            while (!value.equals("ticked")){
-                wait(); // wait end method tick()
+            if(currentCount < FirstTread.count){
+                wait();
             }
-        }catch (InterruptedException exc){
-            System.out.print("Interrupted thread");
+        }
+        catch (InterruptedException e) {
+            System.out.println("Interrupted main thread");
         }
     }
-
 
 }
