@@ -1,16 +1,24 @@
 package task.task3;
 
+/*
+* Придумать как обойти вариант, когда поток обгоняет поток, который его ждет
+* потому что, обогнав, он уже не выкинет notify()
+* */
+
 public class IncrementClass {
 
-    private int value=0;
+    private int value = 0;
 
-    synchronized public void inc10(Integer currentCount) {
-        value = value+10;
+
+    synchronized public void increment(Integer currentCount, Integer step, String threadName) {
+
+        value = value+step;
+        System.out.print("Поток - "+threadName+"; ");
         System.out.println("Значение переменной: " + value);
         notify();
-
         try {
-            if(currentCount < SecondThread.count){
+            //Встаем на ожидание только когда есть условие для выполнения попеременности потока
+            if(currentCount < this.getMinCountIteration()){
                 wait();
             }
         }
@@ -19,19 +27,16 @@ public class IncrementClass {
         }
     }
 
-    synchronized public void inc100(Integer currentCount) {
+    private Integer getMinCountIteration(){
+        Integer minCount;
 
-        value = value+100;
-        System.out.println("Значение переменной: " + value);
-        notify();
-        try {
-            if(currentCount < FirstTread.count){
-                wait();
-            }
+        if(FirstTread.count <= SecondThread.count){
+            minCount = FirstTread.count;
+        }else {
+            minCount = SecondThread.count;
         }
-        catch (InterruptedException e) {
-            System.out.println("Interrupted main thread");
-        }
+
+        return  minCount;
     }
 
 }

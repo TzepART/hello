@@ -3,7 +3,8 @@ package task.task3;
 class SecondThread extends Thread{
 
     private IncrementClass incrementObj;
-    static Integer count = 5;
+    static Integer count = 10;
+    private Integer step = 10;
 
     public SecondThread(String name, IncrementClass incrementObj) {
         super(name);//set Name to thread
@@ -13,8 +14,7 @@ class SecondThread extends Thread{
     @Override
     public void run(){
         for (int i = 1; i <= count; i++) {
-            System.out.print("Поток - "+this.getName()+"; ");
-            incrementObj.inc100(i);
+            incrementObj.increment(i,step,this.getName());
         }
     }
 }
