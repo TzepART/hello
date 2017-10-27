@@ -8,7 +8,7 @@ public class FirstTread implements Runnable {
     private Integer step = 1000;
 
 
-    public FirstTread(String name, IncrementClass incrementObj) {
+    FirstTread(String name, IncrementClass incrementObj) {
         this.thread = new Thread(this, name);
         this.incrementObj = incrementObj;
     }

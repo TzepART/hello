@@ -6,7 +6,7 @@ class SecondThread extends Thread{
     static Integer count = 10;
     private Integer step = 10;
 
-    public SecondThread(String name, IncrementClass incrementObj) {
+    SecondThread(String name, IncrementClass incrementObj) {
         super(name);//set Name to thread
         this.incrementObj = incrementObj;
     }

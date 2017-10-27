@@ -1,16 +1,12 @@
 package task.task3;
 
-/*
-* Придумать как обойти вариант, когда поток обгоняет поток, который его ждет
-* потому что, обогнав, он уже не выкинет notify()
-* */
 
-public class IncrementClass {
+class IncrementClass {
 
     private int value = 0;
 
 
-    synchronized public void increment(Integer currentCount, Integer step, String threadName) {
+    synchronized void increment(Integer currentCount, Integer step, String threadName) {
 
         value = value+step;
         System.out.print("Поток - "+threadName+"; ");
