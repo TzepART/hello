@@ -26,10 +26,10 @@ class IncrementClass {
     private Integer getMinCountIteration(){
         Integer minCount;
 
-        if(FirstTread.count <= SecondThread.count){
-            minCount = FirstTread.count;
-        }else {
-            minCount = SecondThread.count;
+        if(FirstTread.count < SecondThread.count){
+            minCount = (FirstTread.count - 1);
+        }else{
+            minCount = (SecondThread.count - 1);
         }
 
         return  minCount;

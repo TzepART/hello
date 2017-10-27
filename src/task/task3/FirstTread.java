@@ -15,7 +15,7 @@ public class FirstTread implements Runnable {
 
     @Override
     public void run(){
-        for (int i = 1; i <= count; i++) {
+        for (int i = 0; i < count; i++) {
             incrementObj.increment(i,step,this.thread.getName());
         }
     }
