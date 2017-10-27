@@ -4,19 +4,23 @@ public class FirstTread implements Runnable {
 
     Thread thread;
     private IncrementClass incrementObj;
-    static Integer count = 15;
+    private Integer count;
     private Integer step = 1000;
 
 
-    FirstTread(String name, IncrementClass incrementObj) {
+    FirstTread(String name, IncrementClass incrementObj, Integer cicles) {
         this.thread = new Thread(this, name);
+        this.count = cicles;
         this.incrementObj = incrementObj;
     }
 
     @Override
     public void run(){
-        for (int i = 0; i < count; i++) {
-            incrementObj.increment(i,step,this.thread.getName());
+        for (int i = 1; i <= count; i++) {
+            if(i == count){
+                incrementObj.setWait(false);
+            }
+            incrementObj.increment(step,this.thread.getName());
         }
     }
 }

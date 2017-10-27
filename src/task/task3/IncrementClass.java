@@ -5,8 +5,10 @@ class IncrementClass {
 
     private int value = 0;
 
+    private boolean wait = true;
 
-    synchronized void increment(Integer currentCount, Integer step, String threadName) {
+
+    synchronized void increment(Integer step, String threadName) {
 
         value = value+step;
         System.out.print("Поток - "+threadName+"; ");
@@ -14,7 +16,7 @@ class IncrementClass {
         notify();
         try {
             //Встаем на ожидание только когда есть условие для выполнения попеременности потока
-            if(currentCount < this.getMinCountIteration()){
+            if(this.isWait()){
                 wait();
             }
         }
@@ -23,16 +25,12 @@ class IncrementClass {
         }
     }
 
-    private Integer getMinCountIteration(){
-        Integer minCount;
 
-        if(FirstTread.count < SecondThread.count){
-            minCount = (FirstTread.count - 1);
-        }else{
-            minCount = (SecondThread.count - 1);
-        }
-
-        return  minCount;
+    boolean isWait() {
+        return this.wait;
     }
 
+    void setWait(boolean wait) {
+        this.wait = wait;
+    }
 }
