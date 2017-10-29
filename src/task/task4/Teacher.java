@@ -11,7 +11,9 @@ class Teacher extends Thread {
 
     @Override
     public void run() {
-        this.classRoom.invite(this.getName());
+        while(this.classRoom.isCanInvite()){
+            this.classRoom.invite(this.getName());
+        }
     }
 
 }

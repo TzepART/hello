@@ -28,16 +28,15 @@ public class ClassRoom {
 
     synchronized void invite(String threadName) {
 
-        //вывести имя преподавателя
-        System.out.print(threadName);
-
         // получить рандомного студента
         int idx = new Random().nextInt(this.students.size());
         Student student = this.students.get(idx);
 
         //вывести имя рандомного студента
+        //вывести имя преподавателя
+        System.out.print(threadName);
         System.out.print(" - ");
-        student.start();
+        System.out.println(student.getName());
 
         //завершить поток студента
         //удалить из массива студентов
@@ -62,7 +61,17 @@ public class ClassRoom {
     public void setStudents(Integer countStudents){
         //создадим пул потоков студунтов
         for(int i=0; i < countStudents; i++){
-            this.students.add(new Student("Студент"+i));
+            Student student = new Student("Студент"+i);
+            student.start();
+            this.students.add(student);
+        }
+    }
+
+    public boolean isCanInvite(){
+        if(this.students.size() > 0){
+            return true;
+        }else {
+            return false;
         }
     }
 }
