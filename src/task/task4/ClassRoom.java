@@ -1,7 +1,5 @@
 package task.task4;
 
-import com.sun.tools.javac.util.ArrayUtils;
-
 import java.util.ArrayList;
 import java.util.Random;
 
