@@ -14,8 +14,27 @@ public class UseThreads {
             System.out.println("Неверный формат аргументов");
         }
 
+        ClassRoom classRoom = new ClassRoom(countStudents);
+        Teacher[] teachers = getTeachers(countTeachers, classRoom);
 
-//        Teacher teacher = new Teacher();
-//        Student student = new Student();
+        for (Teacher teacher: teachers){
+            teacher.start();
+        }
+    }
+
+
+    /**
+     * @param countTeachers
+     * @return Teacher[]
+     */
+    public static Teacher[] getTeachers(Integer countTeachers, ClassRoom classRoom){
+        Teacher[] teachers = new Teacher[countTeachers];
+
+        //создадим пул потоков учителей
+        for(int i=0; i < countTeachers; i++){
+            teachers[i] = new Teacher("Преподаватель"+i, classRoom);
+        }
+
+        return teachers;
     }
 }

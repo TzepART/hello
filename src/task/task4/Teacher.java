@@ -2,13 +2,16 @@ package task.task4;
 
 class Teacher extends Thread {
 
-    Teacher(String name) {
+    private ClassRoom classRoom;
+
+    Teacher(String name, ClassRoom classRoom) {
         super(name);
+        this.classRoom = classRoom;
     }
 
     @Override
     public void run() {
-        System.out.print(this.getName());
+        this.classRoom.invite(this.getName());
     }
 
 }

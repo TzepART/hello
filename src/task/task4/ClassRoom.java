@@ -1,5 +1,10 @@
 package task.task4;
 
+import com.sun.tools.javac.util.ArrayUtils;
+
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
 * Каждый преподаватель строго по очереди приглашает любого студента.
 * Как только студент получает приглашение, то поток  студент заканчивается.
@@ -11,47 +16,53 @@ package task.task4;
 
 public class ClassRoom {
 
-    private Integer countTeachers;
     private Integer countStudents;
+    private ArrayList<Student> students;
 
-    public ClassRoom(Integer countTeachers, Integer countStudents) {
-        this.countTeachers = countTeachers;
+    ClassRoom(Integer countStudents) {
         this.countStudents = countStudents;
+        this.students = new ArrayList<Student>(this.countStudents);
+        this.setStudents(countStudents);
     }
 
-    public void inviteTeachersByStudents(){
-        Teacher[] teachers = this.getTeachers(this.countTeachers);
-        Student[] students = this.getStudents(this.countStudents);
 
+    synchronized void invite(String threadName) {
 
-    }
+        //вывести имя преподавателя
+        System.out.print(threadName);
 
-    /**
-     * @param countTeachers
-     * @return Teacher[]
-     */
-    public Teacher[] getTeachers(Integer countTeachers){
-        Teacher[] teachers = new Teacher[countTeachers];
+        // получить рандомного студента
+        int idx = new Random().nextInt(this.students.size());
+        Student student = this.students.get(idx);
 
-        //создадим пул потоков учителей
-        for(int i=0; i < countTeachers; i++){
-            teachers[i] = new Teacher("Преподаватель"+i);
+        //вывести имя рандомного студента
+        System.out.print(" - ");
+        student.start();
+
+        //завершить поток студента
+        //удалить из массива студентов
+        student.interrupt();
+        this.students.remove(idx);
+
+        notify();
+        try {
+            //Встаем на ожидание
+            wait();
         }
-
-        return teachers;
+        catch (InterruptedException e) {
+            System.out.println("Interrupted main thread");
+        }
     }
+
 
     /**
      * @param countStudents
-     * @return Student[]
+     * @return void
      */
-    public Student[] getStudents(Integer countStudents){
-        Student[] students = new Student[countStudents];
+    public void setStudents(Integer countStudents){
         //создадим пул потоков студунтов
         for(int i=0; i < countStudents; i++){
-            students[i] = new Student("Студент"+i);
+            this.students.add(new Student("Студент"+i));
         }
-
-        return students;
     }
 }

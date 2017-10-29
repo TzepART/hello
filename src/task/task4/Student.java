@@ -8,6 +8,6 @@ class Student extends Thread {
 
     @Override
     public void run() {
-        System.out.print(this.getName());
+        System.out.println(this.getName());
     }
 }
