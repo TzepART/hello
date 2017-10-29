@@ -1,4 +1,14 @@
 package task.task4;
 
-public class Teacher {
+class Teacher extends Thread {
+
+    Teacher(String name) {
+        super(name);
+    }
+
+    @Override
+    public void run() {
+        System.out.print(this.getName());
+    }
+
 }
