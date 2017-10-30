@@ -13,6 +13,7 @@ import java.util.Random;
 
 public class JournalQuery {
 
+    static final Integer MAX_DAYS_AGO = 80;
     private BookList bookList;
     private ClientList clientList;
     private Random randomGenerator;
@@ -25,7 +26,7 @@ public class JournalQuery {
     public JournalQuery(BookList bookList, ClientList clientList) {
         this.bookList = bookList;
         this.clientList = clientList;
-        randomGenerator = new Random();
+        this.randomGenerator = new Random();
     }
 
     /**
@@ -44,6 +45,8 @@ public class JournalQuery {
         Date date = new Date();
         System.out.println(dateFormat.format(date)); //2016/11/16 12:08:43;
 
+        Journal[] JournalRows = this.getJournalRowsByType("type1");
+
         String query = "Hello! I have: "+bookList.getBooksList().size()+" books and "+clientList.getClientsList().size()+" clients";
 
         return query;
@@ -56,13 +59,30 @@ public class JournalQuery {
             Journal journal = new Journal();
 
             //get random book
-            int indexBook = randomGenerator.nextInt(this.bookList.getBooksList().size());
+            int indexBook = this.randomGenerator.nextInt(this.bookList.getBooksList().size());
             Book book = this.bookList.getBooksList().get(indexBook);
 
             //get random client
-            int indexClient = randomGenerator.nextInt(this.clientList.getClientsList().size());
+            int indexClient = this.randomGenerator.nextInt(this.clientList.getClientsList().size());
             Client client = this.clientList.getClientsList().get(indexClient);
 
+            //Шаг 1 через сколько дней принес
+            Integer usesDays = this.randomGenerator.nextInt(this.getLimitDaysByCategoryId(book.getType_id()));
+
+            //Шаг 2 сколько дней назад взял
+            Integer countDaysAgoTake = this.randomGenerator.nextInt((MAX_DAYS_AGO - (MAX_DAYS_AGO - usesDays)) + 1) + (MAX_DAYS_AGO - usesDays);
+
+            //Шаг 3 когда отдал
+            Integer countDaysAgoReturn = countDaysAgoTake - usesDays;
+
+            //Шаг 4 когда должен был отдать
+            Integer countDaysAgoMustReturn = countDaysAgoTake - this.getLimitDaysByCategoryId(book.getType_id());
+
+            System.out.print("через сколько дней принес - "+usesDays);
+            System.out.print("; сколько дней назад взял - "+countDaysAgoTake);
+            System.out.print("; когда отдал - "+countDaysAgoReturn);
+            System.out.print("; когда должен был отдать - "+countDaysAgoMustReturn);
+            System.out.println("; лимит - "+this.getLimitDaysByCategoryId(book.getType_id()));
 
 
             JournalRows[i] = journal;
