@@ -13,8 +13,7 @@ public class Journal {
 
     public String getSqlQuery(){
 
-        String query = "";
-
+        String query = "Hello! I have: "+book.getBookIdsArray(count).size()+" books and "+client.getClientIdsArray(count).size()+" clients";
 
         return query;
     }
