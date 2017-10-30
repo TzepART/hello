@@ -3,13 +3,13 @@ package test.genarateSql.entity;
 
 public class Book {
 
-    private Integer id = 0;
+    private Integer id;
 
     private String name;
 
-    private Integer cnt = 0;
+    private Integer cnt;
 
-    private Integer type_id = 0;
+    private Integer type_id;
 
 
     public Integer getId() {
