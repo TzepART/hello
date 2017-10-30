@@ -9,7 +9,7 @@ public class GeneratorSql {
 
         BookList bookList = new BookList("src/test/genarateSql/sql/book.sql");
         ClientList clientList = new ClientList("src/test/genarateSql/sql/client.sql");
-        Journal journal = new Journal(bookList,clientList);
+        JournalQuery journal = new JournalQuery(bookList,clientList);
 
         System.out.println(journal.getSqlQuery());
     }
