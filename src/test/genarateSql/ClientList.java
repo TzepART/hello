@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 class ClientList extends BaseList{
@@ -37,7 +38,23 @@ class ClientList extends BaseList{
 
     private void addClient(String row){
         Client client = new Client();
-        client.setName(row);
+        Map<String, String> values = this.getValuesByQueryRow(row);
+
+        for (Map.Entry<String, String> entry : values.entrySet())
+        {
+            switch (entry.getKey()) {
+                case "name":
+                    client.setName(entry.getValue());
+                    break;
+                case "family":
+                    client.setFamily(entry.getValue());
+                    break;
+                case "passport":
+                    client.setPassport(entry.getValue());
+                    break;
+            }
+        }
+
         this.clients.add(client);
     }
 }

@@ -2,6 +2,7 @@ package test.genarateSql;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 class BookList extends BaseList{
@@ -34,7 +35,23 @@ class BookList extends BaseList{
 
     private void addBook(String row){
         Book book = new Book();
-        book.setName(row);
+        Map<String, String> values = this.getValuesByQueryRow(row);
+
+        for (Map.Entry<String, String> entry : values.entrySet())
+        {
+            switch (entry.getKey()) {
+                case "type_id":
+                    book.setType_id(Integer.parseInt(entry.getValue()));
+                    break;
+                case "name":
+                    book.setName(entry.getValue());
+                    break;
+                case "cnt":
+                    book.setCnt(Integer.parseInt(entry.getValue()));
+                    break;
+            }
+        }
+
         this.books.add(book);
     }
 }
