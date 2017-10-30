@@ -2,18 +2,17 @@ package test.genarateSql;
 
 public class Journal {
 
-    private Book book;
-    private Client client;
-    private int count = 30;
+    private BookList bookList;
+    private ClientList clientList;
 
-    public Journal(Book book, Client client) {
-        this.book = book;
-        this.client = client;
+    public Journal(BookList bookList, ClientList clientList) {
+        this.bookList = bookList;
+        this.clientList = clientList;
     }
 
     public String getSqlQuery(){
 
-        String query = "Hello! I have: "+book.getBookIdsArray(count).size()+" books and "+client.getClientIdsArray(count).size()+" clients";
+        String query = "Hello! I have: "+bookList.getBooksList().size()+" books and "+clientList.getClientsList().size()+" clients";
 
         return query;
     }

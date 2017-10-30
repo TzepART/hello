@@ -1,19 +1,44 @@
 package test.genarateSql;
 
-import java.util.ArrayList;
 
-public class Client {
+class Client {
+    private Integer id;
 
-    /**
-     * @param count
-     * @return ArrayList<Integer>
-     */
-    public ArrayList<Integer> getClientIdsArray(Integer count){
-        ArrayList<Integer> ids = new ArrayList<Integer>(count);
-        for (int i = 1; i<= count; i++){
-            ids.add(i);
-        }
-        return ids;
+    private String name;
+
+    private String family;
+
+    private String passport;
+
+    public Integer getId() {
+        return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getFamily() {
+        return family;
+    }
+
+    public void setFamily(String family) {
+        this.family = family;
+    }
+
+    public String getPassport() {
+        return passport;
+    }
+
+    public void setPassport(String passport) {
+        this.passport = passport;
+    }
 }
