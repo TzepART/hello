@@ -44,6 +44,9 @@ public class ClientList extends BaseList{
         for (Map.Entry<String, String> entry : values.entrySet())
         {
             switch (entry.getKey()) {
+                case "id":
+                    client.setId(Integer.parseInt(entry.getValue()));
+                    break;
                 case "name":
                     client.setName(entry.getValue());
                     break;

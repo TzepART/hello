@@ -42,6 +42,9 @@ public class BookList extends BaseList{
         for (Map.Entry<String, String> entry : values.entrySet())
         {
             switch (entry.getKey()) {
+                case "id":
+                    book.setId(Integer.parseInt(entry.getValue()));
+                    break;
                 case "type_id":
                     book.setType_id(Integer.parseInt(entry.getValue()));
                     break;

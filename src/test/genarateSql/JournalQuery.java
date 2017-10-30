@@ -8,20 +8,22 @@ import test.genarateSql.entity.Journal;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
 public class JournalQuery {
 
     static final Integer MAX_DAYS_AGO = 80;
+
     private BookList bookList;
     private ClientList clientList;
+    private ArrayList<Journal> journalRows = new ArrayList<Journal>();
+
+
     private Random randomGenerator;
     private DateFormat dateFormat;
-    private Integer countType1 = 40;
-    private Integer countType2 = 30;
-    private Integer countType3 = 20;
-    private Integer countType4 = 20;
+    private Integer countRowsType = 70;
 
 
     public JournalQuery(BookList bookList, ClientList clientList) {
@@ -42,19 +44,25 @@ public class JournalQuery {
      * Type3 - Взял и ещё не вернул, но успевает Tt < Trt < Tmr
      * Type4 - Взял и ещё не вернул и не успевает Tt  < Tmr < Trr
     * */
-    public String getSqlQuery(){
+    String getSqlQuery(){
 
-        Journal[] JournalRows = this.getJournalRowsByType("type1");
+        this.setJournalRowsByType("type1");
+        this.setJournalRowsByType("type2");
+        this.setJournalRowsByType("type3");
+        this.setJournalRowsByType("type4");
 
-        String query = "Hello! I have: "+bookList.getBooksList().size()+" books and "+clientList.getClientsList().size()+" clients";
+        String query = "";
+
+        for (Journal journal: this.journalRows) {
+            query += journal.getQuery()+"\n";
+        }
 
         return query;
     }
 
-    private Journal[] getJournalRowsByType(String type){
-        Journal[] JournalRows = new Journal[this.countType1];
+    private void setJournalRowsByType(String type){
 
-        for (int i=0; i<this.countType1; i++){
+        for (int i=0; i<this.countRowsType; i++){
             Journal journal = new Journal();
 
             //get random book
@@ -65,23 +73,38 @@ public class JournalQuery {
             int indexClient = this.randomGenerator.nextInt(this.clientList.getClientsList().size());
             Client client = this.clientList.getClientsList().get(indexClient);
 
-            this.setDatesByType1(book,journal);
+            switch (type){
+                case "type1":
+                    this.setDatesByType1(book,journal);
+                    break;
+                case "type2":
+                    this.setDatesByType2(book,journal);
+                    break;
+                case "type3":
+                    this.setDatesByType3(book,journal);
+                    break;
+                case "type4":
+                    this.setDatesByType4(book,journal);
+                    break;
+            }
 
-            JournalRows[i] = journal;
+            journal.setBook_id(book.getId());
+            journal.setClient_id(client.getId());
+
+            this.journalRows.add(journal);
         }
-
-        return JournalRows;
     }
 
     private void setDatesByType1(Book book, Journal journal){
 
         Date date = new Date();
+        Integer limitDays = this.getLimitDaysByCategoryId(book.getType_id());
 
         //Шаг 1 через сколько дней принес
-        Integer usesDays = this.randomGenerator.nextInt(this.getLimitDaysByCategoryId(book.getType_id()));
+        Integer usesDays = this.getRandom(0,limitDays);
 
         //Шаг 2 когда взял
-        Integer countDaysAgoTake = this.randomGenerator.nextInt((MAX_DAYS_AGO - (MAX_DAYS_AGO - usesDays)) + 1) + (MAX_DAYS_AGO - usesDays);
+        Integer countDaysAgoTake = this.getRandom(MAX_DAYS_AGO - usesDays, MAX_DAYS_AGO);
         journal.setDdate(this.getPastDateByValue(date,countDaysAgoTake));
 
         //Шаг 3 когда отдал
@@ -89,7 +112,55 @@ public class JournalQuery {
         journal.setDate_return_real(this.getPastDateByValue(date,countDaysAgoReturn));
 
         //Шаг 4 когда должен был отдать
-        Integer countDaysAgoMustReturn = countDaysAgoTake - this.getLimitDaysByCategoryId(book.getType_id());
+        Integer countDaysAgoMustReturn = countDaysAgoTake - limitDays;
+
+        if(countDaysAgoMustReturn > 0){
+            journal.setDate_return(this.getPastDateByValue(date,countDaysAgoMustReturn));
+        }else{
+            journal.setDate_return(this.getFutureDateByValue(date,countDaysAgoMustReturn));
+        }
+    }
+
+    private void setDatesByType2(Book book, Journal journal){
+
+        Date date = new Date();
+        Integer limitDays = this.getLimitDaysByCategoryId(book.getType_id());
+
+        //Шаг 1 через сколько дней принес
+        Integer usesDays = this.getRandom(limitDays,MAX_DAYS_AGO);
+
+        //Шаг 2 когда взял
+        Integer countDaysAgoTake = this.getRandom(usesDays,MAX_DAYS_AGO);
+        journal.setDdate(this.getPastDateByValue(date,countDaysAgoTake));
+
+        //Шаг 3 когда отдал
+        Integer countDaysAgoReturn = countDaysAgoTake - usesDays;
+        journal.setDate_return_real(this.getPastDateByValue(date,countDaysAgoReturn));
+
+        //Шаг 4 когда должен был отдать
+        Integer countDaysAgoMustReturn = countDaysAgoTake - limitDays;
+
+        if(countDaysAgoMustReturn > 0){
+            journal.setDate_return(this.getPastDateByValue(date,countDaysAgoMustReturn));
+        }else{
+            journal.setDate_return(this.getFutureDateByValue(date,countDaysAgoMustReturn));
+        }
+    }
+
+    private void setDatesByType3(Book book, Journal journal){
+
+        Date date = new Date();
+        Integer limitDays = this.getLimitDaysByCategoryId(book.getType_id());
+
+        //Шаг 2 когда взял
+        Integer countDaysAgoTake = this.getRandom(0, limitDays);
+        journal.setDdate(this.getPastDateByValue(date,countDaysAgoTake));
+
+        //Шаг 3 когда отдал
+        journal.setDate_return_real("");
+
+        //Шаг 4 когда должен отдать
+        Integer countDaysAgoMustReturn = countDaysAgoTake - limitDays;
 
         if(countDaysAgoMustReturn < 0){
             journal.setDate_return(this.getPastDateByValue(date,countDaysAgoMustReturn));
@@ -98,13 +169,48 @@ public class JournalQuery {
         }
     }
 
+    private void setDatesByType4(Book book, Journal journal){
+
+        Date date = new Date();
+        Integer limitDays = this.getLimitDaysByCategoryId(book.getType_id());
+
+        //Шаг 2 когда взял
+        Integer countDaysAgoTake = this.getRandom(limitDays, MAX_DAYS_AGO);
+
+        journal.setDdate(this.getPastDateByValue(date,countDaysAgoTake));
+
+        //Шаг 3 когда отдал
+        journal.setDate_return_real("");
+
+        //Шаг 4 когда должен отдать
+        Integer countDaysAgoMustReturn = countDaysAgoTake - limitDays;
+
+        if(countDaysAgoMustReturn > 0){
+            journal.setDate_return(this.getPastDateByValue(date,countDaysAgoMustReturn));
+        }else{
+            journal.setDate_return(this.getFutureDateByValue(date,countDaysAgoMustReturn));
+        }
+    }
+
+    private Integer getRandom(Integer min, Integer max){
+        return this.randomGenerator.nextInt((max - min) + 1) + min;
+    }
+
     private String getPastDateByValue(Date date, int countDays){
-        Date newDate = new Date(date.getTime()-countDays*24*60*60*1000);
+        long hours = (long) countDays*24;
+        long minutes = hours*60;
+        long seconds = minutes*60;
+        long miliseconds = seconds*1000;
+        Date newDate = new Date(date.getTime() - miliseconds);
         return dateFormat.format(newDate);
     }
 
     private String getFutureDateByValue(Date date, int countDays){
-        Date newDate = new Date(date.getTime()+countDays*24*60*60*1000);
+        long hours = (long) countDays*24;
+        long minutes = hours*60;
+        long seconds = minutes*60;
+        long miliseconds = seconds*1000;
+        Date newDate = new Date(date.getTime() + miliseconds);
         return dateFormat.format(newDate);
     }
 
