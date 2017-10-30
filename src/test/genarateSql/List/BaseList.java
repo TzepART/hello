@@ -1,4 +1,4 @@
-package test.genarateSql;
+package test.genarateSql.List;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package test.genarateSql;
+package test.genarateSql.entity;
 
 
 public class Book {

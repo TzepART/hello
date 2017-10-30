@@ -1,19 +1,21 @@
-package test.genarateSql;
+package test.genarateSql.List;
+
+import test.genarateSql.entity.Book;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Map;
 
 
-class BookList extends BaseList{
+public class BookList extends BaseList{
 
     private ArrayList<Book> books = new ArrayList<Book>();
 
-    BookList(String path) {
+    public BookList(String path) {
         super(path);
     }
 
-    ArrayList<Book> getBooksList(){
+    public ArrayList<Book> getBooksList(){
 
         //read file into stream, try-with-resources
         try {

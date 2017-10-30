@@ -1,5 +1,8 @@
 package test.genarateSql;
 
+import test.genarateSql.List.BookList;
+import test.genarateSql.List.ClientList;
+
 public class Journal {
 
     private BookList bookList;

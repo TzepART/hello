@@ -1,7 +1,7 @@
-package test.genarateSql;
+package test.genarateSql.entity;
 
 
-class Client {
+public class Client {
     private Integer id;
 
     private String name;

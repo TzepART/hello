@@ -1,5 +1,6 @@
-package test.genarateSql;
+package test.genarateSql.List;
 
+import test.genarateSql.entity.Client;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -8,15 +9,15 @@ import java.util.ArrayList;
 import java.util.Map;
 
 
-class ClientList extends BaseList{
+public class ClientList extends BaseList{
 
-    private ArrayList<Client> clients = new ArrayList<Client>();
+    private ArrayList<Client> clients = new ArrayList<>();
 
-    ClientList(String path) {
+    public ClientList(String path) {
         super(path);
     }
 
-    ArrayList<Client> getClientsList(){
+    public ArrayList<Client> getClientsList(){
 
         //read file into stream, try-with-resources
         try {

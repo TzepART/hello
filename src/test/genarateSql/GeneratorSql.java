@@ -1,5 +1,8 @@
 package test.genarateSql;
 
+import test.genarateSql.List.BookList;
+import test.genarateSql.List.ClientList;
+
 public class GeneratorSql {
 
     public static void main(String args[]){
