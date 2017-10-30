@@ -4,14 +4,12 @@ import java.io.*;
 import java.util.ArrayList;
 
 
-class BookList {
+class BookList extends BaseList{
 
-    private Integer count;
     private ArrayList<Book> books = new ArrayList<Book>();
-    private String fileName = "src/test/genarateSql/book.sql";
 
-    BookList() {
-
+    BookList(String path) {
+        super(path);
     }
 
     ArrayList<Book> getBooksList(){

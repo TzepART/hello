@@ -7,14 +7,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-class ClientList {
+class ClientList extends BaseList{
 
-    private Integer count;
     private ArrayList<Client> clients = new ArrayList<Client>();
-    private String fileName = "src/test/genarateSql/client.sql";
 
-    ClientList() {
-
+    ClientList(String path) {
+        super(path);
     }
 
     ArrayList<Client> getClientsList(){
