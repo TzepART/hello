@@ -53,6 +53,7 @@ SELECT * FROM library.clients as clients RIGHT JOIN
 
 /*для реализации проекта*/
 /*Число книг на руках у заданного клиента.*/
+SELECT count(*) as count_not_return_books FROM library.journal as journal WHERE journal.client_id = '7' AND journal.date_return_real = '0000-00-00 00:00:00';
 
 /*Размер штрафа заданного клиента.*/
 
