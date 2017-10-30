@@ -1,5 +1,88 @@
-1
-2
-3
-4
-5
+id: 1-43
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Обычная книга 4', '6', '1');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Обычная книга 5', '10', '1');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Обычная книга 6', '4', '1');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Обычная книга 7', '2', '1');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Обычная книга 8', '6', '1');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Обычная книга 9', '2', '1');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Обычная книга 10', '6', '1');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Обычная книга 11', '11', '1');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Обычная книга 12', '14', '1');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Обычная книга 13', '2', '1');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Обычная книга 14', '6', '1');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Редкая книга 1', '4', '2');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Редкая книга 2', '3', '2');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Редкая книга 3', '2', '2');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Редкая книга 4', '6', '2');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Редкая книга 5', '10', '2');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Редкая книга 6', '4', '2');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Редкая книга 7', '2', '2');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Редкая книга 8', '6', '2');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Редкая книга 9', '2', '2');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Редкая книга 10', '6', '2');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Редкая книга 11', '11', '2');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Редкая книга 12', '14', '2');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Редкая книга 13', '2', '2');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Редкая книга 14', '6', '2');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Уникальная книга 1', '1', '3');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Уникальная книга 2', '1', '3');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Уникальная книга 3', '1', '3');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Уникальная книга 4', '1', '3');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Уникальная книга 5', '1', '3');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Уникальная книга 6', '1', '3');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Уникальная книга 7', '1', '3');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Уникальная книга 8', '1', '3');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Уникальная книга 9', '1', '3');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Уникальная книга 10', '1', '3');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Уникальная книга 11', '1', '3');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Уникальная книга 12', '1', '3');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Уникальная книга 13', '1', '3');
+INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Уникальная книга 14', '1', '3');
+
+id: 1-41
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Иван', 'Иванов', '2323123123');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Руслан', 'Шиловский', '9302547974');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Лукьян', 'Лещёв', '3105681274');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Дементий', 'Бабинов', '7509399724');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Кондратий', 'Кабаидзе', '1434110294');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Игнатий', 'Михайличенко', '3352207934');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Георгий', 'Кирьянов', '5823240424');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Фока', 'Шаповалов', '1127029384');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Владислав', 'Исаков', '2227057344');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Феликс', 'Марченко', '7381817394');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Антон', 'Лосев', '1063476064');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Борислав', 'Куратник', '2859018284');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Эдуард', 'Ярмолинский', '3102204094');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Никанор', 'Яндашевский', '8633224864');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Ерофей', 'Мерзляков', '9003308894');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Моисей', 'Финагин', '9428018784');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Аскольд', 'Ласкутин', '2463245524');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Вацлав', 'Ямилов', '7084647594');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Еремей', 'Берия', '2837547684');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Мирослав', 'Ивакин', '5850763394');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Михей', 'Янкилевский', '5212027424');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Юлиан', 'Попков', '1920526134');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Семён', 'Пономарёв', '2443540494');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Филимон', 'Богатырев', '8268116744');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Андрон', 'Ларин', '2465934284');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Терентий', 'Лассман', '5979234744');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Архип', 'Лаптев', '3631562294');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Эммануил', 'Дасаев', '1994521984');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Ростислав', 'Тредиаковский', '3010943724');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Касьян', 'Улицкий', '5706998344');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Мечислав', 'Турышев', '9526841854');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Сигизмунд', 'Андреюшкин', '8351326584');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Тарас', 'Морозов', '6669392714');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Мефодий', 'Филимонов', '7557064864');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Федот', 'Криворотов', '1059767124');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Зиновий', 'Юматов', '3482298454');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Анатолий', 'Сиянко', '8290981604');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Артур', 'Новожилов', '2760475274');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Николай', 'Шастин', '9239111354');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Серафим', 'Курзыбов', '1748318234');
+INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Рубен', 'Сериков', '7800229134');
+
+id: 1-
+INSERT INTO `library`.`journal` (`ddate`, `book_id`, `client_id`, `date_return`, `date_return_real`) VALUES ('2017-06-04 18:13:56', '2', '3', '2017-06-25 18:13:56', '2009-06-04 18:13:56');
+
+
