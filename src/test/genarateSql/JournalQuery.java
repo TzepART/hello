@@ -17,6 +17,7 @@ public class JournalQuery {
     private BookList bookList;
     private ClientList clientList;
     private Random randomGenerator;
+    private DateFormat dateFormat;
     private Integer countType1 = 40;
     private Integer countType2 = 30;
     private Integer countType3 = 20;
@@ -27,6 +28,7 @@ public class JournalQuery {
         this.bookList = bookList;
         this.clientList = clientList;
         this.randomGenerator = new Random();
+        this.dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     }
 
     /**
@@ -41,9 +43,6 @@ public class JournalQuery {
      * Type4 - Взял и ещё не вернул и не успевает Tt  < Tmr < Trr
     * */
     public String getSqlQuery(){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        System.out.println(dateFormat.format(date)); //2016/11/16 12:08:43;
 
         Journal[] JournalRows = this.getJournalRowsByType("type1");
 
@@ -66,24 +65,7 @@ public class JournalQuery {
             int indexClient = this.randomGenerator.nextInt(this.clientList.getClientsList().size());
             Client client = this.clientList.getClientsList().get(indexClient);
 
-            //Шаг 1 через сколько дней принес
-            Integer usesDays = this.randomGenerator.nextInt(this.getLimitDaysByCategoryId(book.getType_id()));
-
-            //Шаг 2 сколько дней назад взял
-            Integer countDaysAgoTake = this.randomGenerator.nextInt((MAX_DAYS_AGO - (MAX_DAYS_AGO - usesDays)) + 1) + (MAX_DAYS_AGO - usesDays);
-
-            //Шаг 3 когда отдал
-            Integer countDaysAgoReturn = countDaysAgoTake - usesDays;
-
-            //Шаг 4 когда должен был отдать
-            Integer countDaysAgoMustReturn = countDaysAgoTake - this.getLimitDaysByCategoryId(book.getType_id());
-
-            System.out.print("через сколько дней принес - "+usesDays);
-            System.out.print("; сколько дней назад взял - "+countDaysAgoTake);
-            System.out.print("; когда отдал - "+countDaysAgoReturn);
-            System.out.print("; когда должен был отдать - "+countDaysAgoMustReturn);
-            System.out.println("; лимит - "+this.getLimitDaysByCategoryId(book.getType_id()));
-
+            this.setDatesByType1(book,journal);
 
             JournalRows[i] = journal;
         }
@@ -91,12 +73,39 @@ public class JournalQuery {
         return JournalRows;
     }
 
-    private Date getPastDateByValue(long value, int countDays){
-        return new Date(value-countDays*24*60*60*1000);
+    private void setDatesByType1(Book book, Journal journal){
+
+        Date date = new Date();
+
+        //Шаг 1 через сколько дней принес
+        Integer usesDays = this.randomGenerator.nextInt(this.getLimitDaysByCategoryId(book.getType_id()));
+
+        //Шаг 2 когда взял
+        Integer countDaysAgoTake = this.randomGenerator.nextInt((MAX_DAYS_AGO - (MAX_DAYS_AGO - usesDays)) + 1) + (MAX_DAYS_AGO - usesDays);
+        journal.setDdate(this.getPastDateByValue(date,countDaysAgoTake));
+
+        //Шаг 3 когда отдал
+        Integer countDaysAgoReturn = countDaysAgoTake - usesDays;
+        journal.setDate_return_real(this.getPastDateByValue(date,countDaysAgoReturn));
+
+        //Шаг 4 когда должен был отдать
+        Integer countDaysAgoMustReturn = countDaysAgoTake - this.getLimitDaysByCategoryId(book.getType_id());
+
+        if(countDaysAgoMustReturn < 0){
+            journal.setDate_return(this.getPastDateByValue(date,countDaysAgoMustReturn));
+        }else{
+            journal.setDate_return(this.getFutureDateByValue(date,countDaysAgoMustReturn));
+        }
     }
 
-    private Date getFutureDateByValue(long value, int countDays){
-        return new Date(value+countDays*24*60*60*1000);
+    private String getPastDateByValue(Date date, int countDays){
+        Date newDate = new Date(date.getTime()-countDays*24*60*60*1000);
+        return dateFormat.format(newDate);
+    }
+
+    private String getFutureDateByValue(Date date, int countDays){
+        Date newDate = new Date(date.getTime()+countDays*24*60*60*1000);
+        return dateFormat.format(newDate);
     }
 
     private Integer getLimitDaysByCategoryId(Integer id){
