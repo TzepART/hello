@@ -56,7 +56,20 @@ SELECT * FROM library.clients as clients RIGHT JOIN
 SELECT count(*) as count_not_return_books FROM library.journal as journal WHERE journal.client_id = '7' AND journal.date_return_real = '0000-00-00 00:00:00';
 
 /*Размер штрафа заданного клиента.*/
+--1. Получить все записи журнала для пользователя
+--2. Вычислить разницу по времени между (если вернул, то врменем возращения, если нет то сегодняшней датой) и временем когда нужно вернуть
+--3. Если количество дней положительно то добавляем в выборку + сумма за просрочку за день
+--4. Пермножить дни на сумму
+--5. Получить общую сумму
 
 /*Размер самого большого штрафа*/
+--1. Получить все записи журнала для пользователя
+--2. Вычислить разницу по времени между (если вернул, то врменем возращения, если нет то сегодняшней датой) и временем когда нужно вернуть
+--3. Если количество дней положительно то добавляем в выборку + сумма за просрочку за день
+--4. Пермножить дни на сумму
+--6. Сортируем
+--7. Береем верхнее значение
 
 /*Три самые популярные книги*/
+ SELECT journal.book_id as book_id, count(journal.book_id) as count_books, books.name FROM library.journal as  journal
+		INNER JOIN library.books as books on books.id = journal.book_id GROUP by book_id order by count_books DESC LIMIT 3;
