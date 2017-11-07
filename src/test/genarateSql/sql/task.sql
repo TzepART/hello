@@ -128,7 +128,17 @@ select NOW(),2,46,DATE_ADD(NOW(), INTERVAL 60 DAY)
 
 /*многотабличная вставка в рамках транзакции*/
 --Добавить в рамках транзакции клиента, книгу и запись в журнал библиотекаря о выдачи книги этому клиенту
+
 --Добавить запись в журнал, в случае, если книг у данного клиента больше 10, транзакцию откатить
+START TRANSACTION;
+INSERT INTO library.journal (`ddate`, `book_id`, `client_id`, `date_return`)
+select NOW(),4,46,DATE_ADD(NOW(),INTERVAL 60 DAY);
+SELECT COUNT(*) INTO @book_rows from library.journal where journal.client_id=46;
+IF (book_rows < 4) THEN
+    COMMIT;
+ELSE
+    ROLLBACK;
+END IF;
 
 /*Удаление данных*/
 /*удаление по фильтру и удаление из связанных таблиц*/
