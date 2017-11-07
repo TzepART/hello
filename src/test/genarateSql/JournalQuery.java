@@ -157,7 +157,7 @@ public class JournalQuery {
         journal.setDdate(this.getPastDateByValue(date,countDaysAgoTake));
 
         //Шаг 3 когда отдал
-        journal.setDate_return_real("");
+        journal.setDate_return_real("0000-00-00 00:00:00");
 
         //Шаг 4 когда должен отдать
         Integer countDaysAgoMustReturn = countDaysAgoTake - limitDays;
@@ -180,7 +180,7 @@ public class JournalQuery {
         journal.setDdate(this.getPastDateByValue(date,countDaysAgoTake));
 
         //Шаг 3 когда отдал
-        journal.setDate_return_real("");
+        journal.setDate_return_real("0000-00-00 00:00:00");
 
         //Шаг 4 когда должен отдать
         Integer countDaysAgoMustReturn = countDaysAgoTake - limitDays;
