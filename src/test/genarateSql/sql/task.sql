@@ -25,7 +25,7 @@ SELECT count(*) FROM library.books where cnt = 0;
 SELECT * FROM library.books as books WHERE books.type_id IN (SELECT id FROM library.book_types as type WHERE type.name='Уникальные');
 
 /*Вывести все операции с книгами типа «уникальные»*/
-SELECT * FROM library.journal as journal WHERE journal.book_id IN
+SELECT COUNT(*) FROM library.journal as journal WHERE journal.book_id IN
 	(SELECT id FROM library.books as books WHERE books.type_id IN
 		(SELECT id FROM library.book_types as type WHERE type.name='Уникальные')
 );
@@ -46,7 +46,7 @@ FROM library.journal as journal INNER JOIN library.clients as clients ON journal
 SELECT * FROM library.journal as journal RIGHT JOIN library.clients as clients ON journal.client_id = clients.id;
 
 /*Вывести журнал библиотекаря, читателей, включая читателей, которые не брали книг и книги, включая книги, которых не выдавали*/
-SELECT * FROM library.clients as clients RIGHT JOIN
+SELECT * FROM library.clients as clients left JOIN
 	(SELECT books.name as books_name, books.cnt as books_count,
 		journal.id as journal_id, journal.book_id as books_d,  journal.client_id as client_id,  journal.ddate,  journal.date_return,  journal.date_return_real
 		FROM library.journal as journal RIGHT JOIN library.books ON journal.book_id=books.id) as jb ON jb.client_id=clients.id;
@@ -132,9 +132,11 @@ delimiter $$
 create procedure addClientAndBookTransaction()
 BEGIN
 	START TRANSACTION;
-	INSERT INTO `library`.`clients` (`id`, `family`, `name`, `passport`) VALUES ('50', 'Иванов', 'Иван', '1111111111');
-	INSERT INTO `library`.`books` (`id`, `name`, `cnt`, `type_id`) VALUES ('50', 'Обычная книга 1', '3', '1');
-	INSERT INTO library.journal (`ddate`, `book_id`, `client_id`, `date_return`) select NOW(),50,50,DATE_ADD(NOW(),INTERVAL 60 DAY);
+	INSERT INTO `library`.`clients` (`family`, `name`, `passport`) VALUES ('Иванов', 'Иван', '11113434111111');
+	SELECT clients.id INTO @client_id from library.clients where clients.family='Иванов' order by clients.id DESC limit 1;
+	INSERT INTO `library`.`books` (`name`, `cnt`, `type_id`) VALUES ('Обычная книга ereere', '3', '1');
+	SELECT books.id INTO @book_id from library.books where books.name='Обычная книга ereere' order by books.id DESC limit 1;
+	INSERT INTO library.journal (`ddate`, `book_id`, `client_id`, `date_return`) select NOW(),@book_id,@client_id,DATE_ADD(NOW(),INTERVAL 60 DAY);
 END$$
 delimiter ;
 
@@ -270,3 +272,7 @@ delimiter ;
 
 call setNewBookAndRevertTransaction(13,14);
 drop procedure setNewBookAndRevertTransaction;
+
+
+books_alias.name as books_name, books_alias.cnt as books_count,
+		journal_alias.id as journal_id, journal_alias.book_id as books_d,  journal_alias.client_id as client_id,  journal_alias.ddate,  journal_alias.date_return,  journal_alias.date_return_real
