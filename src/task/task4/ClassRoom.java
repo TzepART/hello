@@ -15,12 +15,15 @@ import java.util.Random;
 public class ClassRoom {
 
     private Integer countStudents;
+    private int countTeachers;
     private ArrayList<Student> students;
+    public static int nextTeacher = 0;
 
-    ClassRoom(Integer countStudents) {
+    ClassRoom(Integer countStudents, int countTeachers) {
         this.countStudents = countStudents;
         this.students = new ArrayList<Student>(this.countStudents);
         this.setStudents(countStudents);
+        this.countTeachers = countTeachers;
     }
 
 
@@ -42,6 +45,12 @@ public class ClassRoom {
         this.students.remove(idx);
 
         notify();
+        if(ClassRoom.nextTeacher < (this.countTeachers-1)){
+            ClassRoom.nextTeacher++;
+        }else{
+            ClassRoom.nextTeacher = 0;
+        }
+
         try {
             //Встаем на ожидание
             wait();

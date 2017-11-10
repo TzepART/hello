@@ -19,7 +19,7 @@ public class UseThreads {
         }else if(countStudents == 0){
             System.out.println("Число студентов 0");
         }else{
-            ClassRoom classRoom = new ClassRoom(countStudents);
+            ClassRoom classRoom = new ClassRoom(countStudents,countTeachers);
             Teacher[] teachers = getTeachers(countTeachers, classRoom);
 
             for (Teacher teacher: teachers){
@@ -39,7 +39,7 @@ public class UseThreads {
 
         //создадим пул потоков учителей
         for(int i=0; i < countTeachers; i++){
-            teachers[i] = new Teacher("Преподаватель"+(i+1), classRoom);
+            teachers[i] = new Teacher("Преподаватель"+(i+1), classRoom, i);
         }
 
         return teachers;
