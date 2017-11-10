@@ -59,7 +59,7 @@ public class ClassRoom {
     public void setStudents(Integer countStudents){
         //создадим пул потоков студунтов
         for(int i=0; i < countStudents; i++){
-            Student student = new Student("Студент"+i);
+            Student student = new Student("Студент"+(i+1));
             student.start();
             this.students.add(student);
         }

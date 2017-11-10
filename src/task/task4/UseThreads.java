@@ -14,12 +14,19 @@ public class UseThreads {
             System.out.println("Неверный формат аргументов");
         }
 
-        ClassRoom classRoom = new ClassRoom(countStudents);
-        Teacher[] teachers = getTeachers(countTeachers, classRoom);
+        if(countTeachers == 0){
+            System.out.println("Число учтелей 0");
+        }else if(countStudents == 0){
+            System.out.println("Число студентов 0");
+        }else{
+            ClassRoom classRoom = new ClassRoom(countStudents);
+            Teacher[] teachers = getTeachers(countTeachers, classRoom);
 
-        for (Teacher teacher: teachers){
-            teacher.start();
+            for (Teacher teacher: teachers){
+                teacher.start();
+            }
         }
+
     }
 
 
@@ -32,7 +39,7 @@ public class UseThreads {
 
         //создадим пул потоков учителей
         for(int i=0; i < countTeachers; i++){
-            teachers[i] = new Teacher("Преподаватель"+i, classRoom);
+            teachers[i] = new Teacher("Преподаватель"+(i+1), classRoom);
         }
 
         return teachers;
