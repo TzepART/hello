@@ -276,3 +276,208 @@ drop procedure setNewBookAndRevertTransaction;
 
 books_alias.name as books_name, books_alias.cnt as books_count,
 		journal_alias.id as journal_id, journal_alias.book_id as books_d,  journal_alias.client_id as client_id,  journal_alias.ddate,  journal_alias.date_return,  journal_alias.date_return_real
+
+--Представления
+--Создать представление, отображающее всех читателей
+VIEW `all_clients` AS
+    select
+        `clients`.`id` AS `id`,
+        `clients`.`family` AS `family`,
+        `clients`.`name` AS `name`,
+        `clients`.`passport` AS `passport`
+    from
+        `clients`
+
+--Создать представление, отображающее всех читателей, фамилия которых начинается на заданную букву
+VIEW `clients_with_first_letter` AS
+    select
+        `clients`.`id` AS `id`,
+        `clients`.`family` AS `family`,
+        `clients`.`name` AS `name`,
+        `clients`.`passport` AS `passport`
+    from
+        `clients`
+    where
+        (`clients`.`family` like 'С%')
+
+--Создать представление, отображающее всех читателей, у которых количество книг на руках больше 8
+VIEW `clients_with_eight_books` AS
+    select
+        `clients`.`id` AS `id`,
+        `clients`.`family` AS `family`,
+        `clients`.`name` AS `name`,
+        `clients`.`passport` AS `passport`,
+        count(`journal`.`client_id`) AS `count_books`
+    from
+        (`journal`
+        join `clients` ON ((`journal`.`client_id` = `clients`.`id`)))
+    where
+        (`journal`.`date_return_real` = '0000-00-00 00:00:00')
+    group by `clients`.`id`
+    having (count(`journal`.`client_id`) > 8)
+
+--Создать представление, отображающее все книги и читателей, о которых найдены записи в журнале с заданной даты по заданную дату
+VIEW `clients_and_books` AS
+    select
+        `clients`.`id` AS `client_id`,
+        `clients`.`family` AS `family`,
+        `clients`.`name` AS `name`,
+        `clients`.`passport` AS `passport`,
+        `books`.`id` AS `book_id`,
+        `books`.`name` AS `book_name`,
+        `journal`.`ddate` AS `ddate`
+    from
+        ((`clients`
+        join `journal` ON ((`journal`.`client_id` = `clients`.`id`)))
+        join `books` ON ((`journal`.`book_id` = `books`.`id`)))
+    where
+        (`journal`.`ddate` between '2017-09-01 00:00:00' and '2017-10-31 18:00:00')
+    order by `clients`.`family`
+
+--Создать представление, отображающее всех читателей и количество книг, находящихся у них на руках
+VIEW `clients_and_books_on_hands` AS
+    select
+        `clients`.`id` AS `id`,
+        `clients`.`family` AS `family`,
+        `clients`.`name` AS `name`,
+        `clients`.`passport` AS `passport`,
+        sum(if((`journal`.`date_return_real` = '0000-00-00 00:00:00'),
+            1,
+            0)) AS `count_books`
+    from
+        (`journal`
+        join `clients` ON ((`journal`.`client_id` = `clients`.`id`)))
+    group by `clients`.`id`
+
+--Хранимые процедуры
+--без параметров
+--Создать хранимую процедуру, выводящую читателя, с наибольшим количеством книг на руках.
+delimiter $$
+create procedure getClientsWithMaxBooks()
+begin
+    select
+        `clients`.`id` AS `id`,
+        `clients`.`family` AS `family`,
+        `clients`.`name` AS `name`,
+        `clients`.`passport` AS `passport`,
+        sum(if((`journal`.`date_return_real` = '0000-00-00 00:00:00'),
+            1,
+            0)) AS `count_books`
+    from
+        (`journal`
+        join `clients` ON ((`journal`.`client_id` = `clients`.`id`)))
+    group by `clients`.`id`
+    order by `count_books` DESC;
+END$$
+delimiter ;
+
+call getClientsWithMaxBooks();
+drop procedure getClientsWithMaxBooks;
+
+--Создать хранимую процедуру, выводящую самую популярную книгу
+delimiter $$
+create procedure getTheBestBook()
+begin
+    select
+        `books`.`id` AS `id`,
+        `books`.`name` AS `name`,
+        count(`journal`.`book_id`) AS `count_use`
+    from
+        (`books`
+        join `journal` ON ((`journal`.`book_id` = `books`.`id`)))
+    group by `books`.`id`
+    order by `count_use` DESC
+	limit 1;
+END$$
+delimiter ;
+
+call getTheBestBook();
+drop procedure getTheBestBook;
+
+--Создать хранимую процедуру, выводящую все книги и среднее время, на которое их брали в днях
+delimiter $$
+create procedure getBooksWithMiddelUsingTime()
+begin
+select
+    `books`.`id` AS `id`,
+    `books`.`name` AS `name`,
+    count(`journal`.`book_id`) AS `count_use`,
+    sum(DATEDIFF(IF(`journal`.`date_return_real` <> '0000-00-00 00:00:00',
+                `journal`.`date_return_real`,
+                CURDATE()),`journal`.`ddate`))/count(`journal`.`book_id`) AS `middle_use_days`
+from
+    (`books`
+    left join `journal` ON (`journal`.`book_id` = `books`.`id`))
+group by `books`.`id`
+order by `count_use` DESC;
+END$$
+delimiter ;
+
+call getBooksWithMiddelUsingTime();
+drop procedure getBooksWithMiddelUsingTime;
+
+--с входными параметрами
+--Создать хранимую процедуру с параметром книга и выводящую всех читателей, бравших эту книгу.
+delimiter $$
+create procedure getClientsUsesBook(bookId INT)
+begin
+    select
+        `clients`.`id` AS `client_id`,
+        `clients`.`family` AS `family`,
+        `clients`.`name` AS `name`,
+        `clients`.`passport` AS `passport`
+    from
+        `clients`
+        join `journal` ON (`journal`.`client_id` = `clients`.`id`)
+    where
+        (`journal`.`book_id`=bookId)
+    order by `clients`.`family`;
+END$$
+delimiter ;
+
+call getClientsUsesBook(2);
+drop procedure getClientsUsesBook;
+
+--Создать хранимую процедуру, имеющую параметр читатель и выводящую все книги, которые он брал.
+delimiter $$
+create procedure getUsesBooksByClient(clientId INT)
+begin
+    select
+        `books`.`id` AS `client_id`,
+        `books`.`name` AS `name`
+    from
+        `books`
+        join `journal` ON (`journal`.`book_id` = `books`.`id`)
+    where
+        (`journal`.`client_id`=clientId)
+    group by `books`.`name`
+    order by `books`.`name`;
+END$$
+delimiter ;
+
+call getUsesBooksByClient(2);
+drop procedure getUsesBooksByClient;
+
+--Создать хранимую процедуру, имеющую два параметра книга1 и  книга2. Она должна возвращать клиентов, которые вернули книгу1 быстрее чем книгу2. Если какой-либо клиент не брал одну из книг – он не рассматривается.
+
+
+--с выходными параметрами
+--Создать хранимую процедуру с входным параметром тип, рассчитывающую количество книг этого типа.
+--Создать хранимую процедуру с входным параметром клиент и выходным параметром – количество книг находящихся у него
+--Создать хранимую процедуру с входным параметром книга и двумя выходными параметрами, возвращающими самое большое время на который брали книгу и читателя, поставившего рекорд
+
+--Триггера
+--Триггера на вставку
+--Создать триггер, который не позволяет добавить читателя с номером паспорта, который уже есть у существующего читателя
+--Создать триггер, который не позволяет добавить запись в журнал библиотекаря, в которой дата возврата не NULL
+--Создать триггер, который не позволяет выдать книгу, который нет в наличии
+--Триггера на модификацию
+--Создать триггер, не позволяющий изменить паспорт читателя
+--Создать триггер, который не позволяет изменить читателя, у которого на руках есть книги
+--Создать триггер, который не позволяет установить реальную дату возврата журнала библиотекаря меньше, чем дата выдачи
+--Триггера на удаление
+--Создать триггер, который при удалении читателя в случае наличия на него ссылок откатывает транзакцию
+--Создать триггер, который при удалении книги в случае наличия на нее ссылок откатывает транзакцию
+--Создать триггер, который при удалении строки журнала в случае, если книга не возвращена - откатывает транзакцию
+
+
