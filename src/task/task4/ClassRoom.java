@@ -14,49 +14,42 @@ import java.util.Random;
 
 public class ClassRoom {
 
-    private Integer countStudents;
-    private int countTeachers;
     private ArrayList<Student> students;
-    public static int nextTeacher = 0;
 
-    ClassRoom(Integer countStudents, int countTeachers) {
-        this.countStudents = countStudents;
-        this.students = new ArrayList<Student>(this.countStudents);
+    ClassRoom(Integer countStudents) {
+        this.students = new ArrayList<Student>(countStudents);
         this.setStudents(countStudents);
-        this.countTeachers = countTeachers;
     }
 
 
-    synchronized void invite(String threadName) {
+    synchronized void invite(Teacher teacher) {
+        if (this.isCanInvite()) {
+            // получить рандомного студента
+            int idx = new Random().nextInt(this.students.size());
+            Student student = this.students.get(idx);
 
-        // получить рандомного студента
-        int idx = new Random().nextInt(this.students.size());
-        Student student = this.students.get(idx);
+            //вывести имя рандомного студента
+            //вывести имя преподавателя
+            System.out.print(teacher.getName());
+            System.out.print(" - ");
+            System.out.println(student.getName());
 
-        //вывести имя рандомного студента
-        //вывести имя преподавателя
-        System.out.print(threadName);
-        System.out.print(" - ");
-        System.out.println(student.getName());
+            //завершить поток студента
+            //удалить из массива студентов
+            student.interrupt();
+            this.students.remove(idx);
 
-        //завершить поток студента
-        //удалить из массива студентов
-        student.interrupt();
-        this.students.remove(idx);
+            synchronized (teacher.getNextTeacher()) {
+//                teacher.getNextTeacher().notify();
+                teacher.getNextTeacher().run();
+            }
 
-        notify();
-        if(ClassRoom.nextTeacher < (this.countTeachers-1)){
-            ClassRoom.nextTeacher++;
-        }else{
-            ClassRoom.nextTeacher = 0;
-        }
-
-        try {
             //Встаем на ожидание
-            wait();
-        }
-        catch (InterruptedException e) {
-            System.out.println("Interrupted main thread");
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                System.out.println("Interrupted main thread");
+            }
         }
     }
 

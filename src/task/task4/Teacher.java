@@ -1,23 +1,28 @@
 package task.task4;
 
-class Teacher extends Thread {
+final class Teacher extends Thread {
 
     private ClassRoom classRoom;
-    private int teacherNumber;
+    private Teacher nextTeacher;
 
-    Teacher(String name, ClassRoom classRoom, int teacherNumber) {
+    Teacher(String name, ClassRoom classRoom) {
         super(name);
         this.classRoom = classRoom;
-        this.teacherNumber = teacherNumber;
     }
 
     @Override
     public void run() {
-        while(this.classRoom.isCanInvite()){
-            if(ClassRoom.nextTeacher == this.teacherNumber){
-                this.classRoom.invite(this.getName());
-            }
+        while (true){
+            classRoom.invite(this);
         }
     }
 
+
+    public void setNextTeacher(Teacher nextTeacher) {
+        this.nextTeacher = nextTeacher;
+    }
+
+    public Teacher getNextTeacher() {
+        return this.nextTeacher;
+    }
 }
