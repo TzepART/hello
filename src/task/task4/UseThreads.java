@@ -23,7 +23,13 @@ public class UseThreads {
             Teacher[] teachers = getTeachers(countTeachers, classRoom);
 
             for (Teacher teacher: teachers){
+//                System.out.println(teacher.getName()+" - "+teacher.getNextTeacher().getName());
                 teacher.start();
+                try {
+                    teacher.sleep(5);
+                }catch(InterruptedException e){
+
+                }
             }
         }
 

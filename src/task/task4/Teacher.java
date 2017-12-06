@@ -12,11 +12,10 @@ final class Teacher extends Thread {
 
     @Override
     public void run() {
-        while (true){
+        while (classRoom.isCanInvite()) {
             classRoom.invite(this);
         }
     }
-
 
     public void setNextTeacher(Teacher nextTeacher) {
         this.nextTeacher = nextTeacher;

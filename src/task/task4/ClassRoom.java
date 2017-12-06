@@ -22,35 +22,45 @@ public class ClassRoom {
     }
 
 
-    synchronized void invite(Teacher teacher) {
-        if (this.isCanInvite()) {
-            // получить рандомного студента
-            int idx = new Random().nextInt(this.students.size());
-            Student student = this.students.get(idx);
+    public void invite(Teacher teacher) {
 
-            //вывести имя рандомного студента
-            //вывести имя преподавателя
-            System.out.print(teacher.getName());
-            System.out.print(" - ");
-            System.out.println(student.getName());
+        //выводим имя преподаваел и приглашенного студента
+        // удалям поток вызванного студента
+        this.outputTeacherAndStudentNames(teacher);
 
-            //завершить поток студента
-            //удалить из массива студентов
-            student.interrupt();
-            this.students.remove(idx);
+        //уведомляем поток следующего преподавателя
+        synchronized(teacher.getNextTeacher()) {
+            teacher.getNextTeacher().notify();
+        }
 
-            synchronized (teacher.getNextTeacher()) {
-//                teacher.getNextTeacher().notify();
-                teacher.getNextTeacher().run();
-            }
-
-            //Встаем на ожидание
+        //Встаем на ожидание
+        synchronized(teacher) {
             try {
-                wait();
+                teacher.wait();
             } catch (InterruptedException e) {
                 System.out.println("Interrupted main thread");
             }
         }
+    }
+
+    /**
+     * @param teacher
+     */
+    private void outputTeacherAndStudentNames(Teacher teacher) {
+        // получить рандомного студента
+        int idx = new Random().nextInt(this.students.size());
+        Student student = this.students.get(idx);
+
+        //вывести имя рандомного студента
+        //вывести имя преподавателя
+        System.out.print(teacher.getName());
+        System.out.print(" - ");
+        System.out.println(student.getName());
+
+        //завершить поток студента
+        //удалить из массива студентов
+        student.interrupt();
+        this.students.remove(idx);
     }
 
 
