@@ -12,18 +12,28 @@ final class Teacher extends Thread {
 
     @Override
     public void run() {
-        while (classRoom.isCanInvite()) {
-            classRoom.invite(this);
-
-            //Встаем на ожидание
-            synchronized(this) {
-                try {
-                    this.wait();
-                } catch (InterruptedException e) {
-                    System.out.println("Interrupted thread");
+        while (true) {
+            if(classRoom.isCanInvite()){
+                classRoom.invite(this);
+                //Встаем на ожидание
+                synchronized(this) {
+                    try {
+                        this.wait();
+                    } catch (InterruptedException e) {
+                        System.out.println("Interrupted thread");
+                    }
                 }
+            }else{
+                //как только все студенты закончились выводим из wait следующий поток
+                //чтобы он мог завершиться и завршаем поток
+                synchronized(this.nextTeacher) {
+                    this.nextTeacher.notify();
+                }
+               return;
             }
+
         }
+
     }
 
     public void setNextTeacher(Teacher nextTeacher) {
