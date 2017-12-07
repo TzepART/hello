@@ -21,16 +21,17 @@ public class UseThreads {
         }else{
             ClassRoom classRoom = new ClassRoom(countStudents);
             Teacher[] teachers = getTeachers(countTeachers, classRoom);
+            teachers[0].start();
 
-            for (Teacher teacher: teachers){
-//                System.out.println(teacher.getName()+" - "+teacher.getNextTeacher().getName());
-                teacher.start();
-                try {
-                    teacher.sleep(5);
-                }catch(InterruptedException e){
-
-                }
-            }
+//            for (Teacher teacher: teachers){
+////                System.out.println(teacher.getName()+" - "+teacher.getNextTeacher().getName());
+//                teacher.start();
+//                try {
+//                    teacher.sleep(5);
+//                }catch(InterruptedException e){
+//
+//                }
+//            }
         }
 
     }

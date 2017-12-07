@@ -30,7 +30,11 @@ public class ClassRoom {
 
         //уведомляем поток следующего преподавателя
         synchronized(teacher.getNextTeacher()) {
-            teacher.getNextTeacher().notify();
+            if(teacher.getNextTeacher().isAlive()){
+                teacher.getNextTeacher().notify();
+            }else{
+                teacher.getNextTeacher().start();
+            }
         }
 
         //Встаем на ожидание
