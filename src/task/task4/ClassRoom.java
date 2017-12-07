@@ -24,35 +24,36 @@ public class ClassRoom {
 
     public void invite(Teacher teacher) {
 
+        //индекс рандомного студента
+        int idx = new Random().nextInt(this.students.size());
+
         //выводим имя преподаваел и приглашенного студента
+        Student student = this.outputTeacherAndStudentNames(teacher,idx);
+
         // удалям поток вызванного студента
-        this.outputTeacherAndStudentNames(teacher);
+        removeStudent(idx, student);
 
         //уведомляем поток следующего преподавателя
         synchronized(teacher.getNextTeacher()) {
+            //если поток уже запущем передаем уведомление
+            //если не запущен запускаем
             if(teacher.getNextTeacher().isAlive()){
                 teacher.getNextTeacher().notify();
             }else{
                 teacher.getNextTeacher().start();
             }
         }
-
-        //Встаем на ожидание
-        synchronized(teacher) {
-            try {
-                teacher.wait();
-            } catch (InterruptedException e) {
-                System.out.println("Interrupted main thread");
-            }
-        }
     }
+
 
     /**
      * @param teacher
+     * @param idx
+     * @return
      */
-    private void outputTeacherAndStudentNames(Teacher teacher) {
+    private Student outputTeacherAndStudentNames(Teacher teacher,int idx) {
         // получить рандомного студента
-        int idx = new Random().nextInt(this.students.size());
+
         Student student = this.students.get(idx);
 
         //вывести имя рандомного студента
@@ -61,6 +62,14 @@ public class ClassRoom {
         System.out.print(" - ");
         System.out.println(student.getName());
 
+        return student;
+    }
+
+    /**
+     * @param idx
+     * @param student
+     */
+    private void removeStudent(int idx, Student student) {
         //завершить поток студента
         //удалить из массива студентов
         student.interrupt();

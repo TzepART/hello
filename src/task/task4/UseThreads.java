@@ -21,6 +21,8 @@ public class UseThreads {
         }else{
             ClassRoom classRoom = new ClassRoom(countStudents);
             Teacher[] teachers = getTeachers(countTeachers, classRoom);
+
+            //запускаем первый
             teachers[0].start();
 
 //            for (Teacher teacher: teachers){

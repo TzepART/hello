@@ -14,6 +14,15 @@ final class Teacher extends Thread {
     public void run() {
         while (classRoom.isCanInvite()) {
             classRoom.invite(this);
+
+            //Встаем на ожидание
+            synchronized(this) {
+                try {
+                    this.wait();
+                } catch (InterruptedException e) {
+                    System.out.println("Interrupted thread");
+                }
+            }
         }
     }
 
