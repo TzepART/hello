@@ -26,23 +26,67 @@ public class Hromov {
         obj.mainForLaba2();
     }
 
+    private void mainForLaba2() {
+        int num = 100;
 
-    public static Number[][] generationCouplesNumbers(int countCouples){
-        Number[][] couple = new Number[countCouples][2];
+        System.out.println("1.	Метод, основанный на центральной предельной теореме ");
+        applyMethod(num, "mbmass");
 
-        for (int i = 0; i < countCouples; i++){
-            Random random = new Random();
-            Number randValue1 = random.nextDouble();
-            Number randValue2 = random.nextDouble();
-            couple[i][0] = randValue1;
-            couple[i][1] = randValue2;
-        }
+        System.out.println("2.	Метод Бокса-Мюллера ");
+        applyMethod(num, "bmass");
 
-        return couple;
+        System.out.println("3.	Метод Марсальи-Брея ");
+        applyMethod(num, "nmass");
+
     }
 
+    private void applyMethod(int num, String methodName) {
+        ArrayList<Number> array;
+
+        System.out.println("Massive ");
+
+        array = getArrayByType(num, methodName);
+        this.printArray(array);
+
+        Sample_mean(array, num);
+
+        System.out.println("Проверка сходения к 0");
+
+        for (int i = 10; i < 35; i += 5) {
+            num = 10 * i;
+
+            System.out.println(" N = ");
+
+            array = getArrayByType(num, methodName);
+            Sample_mean(array, num);
+
+            System.out.println("--------------");
+
+        }
+
+        System.out.println("Тест на симметрию");
+
+        num = 240;
+        array = getArrayByType(num, methodName);
+        Symmetry(array, num);
+    }
+
+    private ArrayList<Number> getArrayByType(int num, String methodName) {
+        ArrayList<Number> array = new ArrayList<Number>();
+
+        if (methodName.equals("mbmass")){
+            array = this.RG(array, num);
+        }else if(methodName.equals("bmass")){
+            array = this.BoxMuller(array, num);
+        }else if(methodName.equals("nmass")){
+            array = this.MorsaliBrey(array, num);
+        }
+        return array;
+    }
+
+
     ////////1.	Метод, основанный на ЦПТ /////////////
-    public ArrayList<Number> RG(ArrayList<Number> vec_num, int volume) {
+    private ArrayList<Number> RG(ArrayList<Number> vec_num, int volume) {
         Random random = new Random();
         int m = 12;
         int tmp = 0;
@@ -52,7 +96,7 @@ public class Hromov {
         for (int i = 1; i <= volume; i++) {
             Number sum = 0;
             for (int j = 1; j <= m; j++) {
-                Number rand = (random.nextInt() % 10000) * (0.0001);
+                Number rand = random.nextDouble();
                 X[j] = rand;
                 sum = sum.doubleValue() + rand.doubleValue();
             }
@@ -64,24 +108,26 @@ public class Hromov {
     }
 
     ////2. Метод Бокса-Мюллера////
-    public ArrayList<Number> BoxMuller(ArrayList<Number> mass, int num) {
+    private ArrayList<Number> BoxMuller(ArrayList<Number> mass, int num) {
         Random random = new Random();
         Number X[] = new Number[400];
         Number a1, a2;
         double pi = Math.PI;
 
         for (int i = 1; i <= num; i++) {
-            a1 = (random.nextInt() % 10000) * (0.0001);
-            a2 = (random.nextInt() % 10000) * (0.0001);
+//            a1 = random.nextDouble();
+//            a2 = random.nextDouble();
+            a1 = random.nextDouble();
+            a2 = random.nextDouble();
             X[i]  = Math.sqrt(-2 * Math.log(a1.doubleValue()))*Math.sin(2 * pi*a2.doubleValue());
-            X[i + 1]  = Math.sqrt(-2 * Math.log(a2.doubleValue()))*Math.cos(2 * pi*a2.doubleValue());
+            X[i+1]  = Math.sqrt(-2 * Math.log(a2.doubleValue()))*Math.cos(2 * pi*a2.doubleValue());
             mass.add(X[i]);
         }
         return mass;
     }
 
     ////3. Метод Морсальи - Брея////
-    public ArrayList<Number> MorsaliBrey(ArrayList<Number> mass, int num) {
+    private ArrayList<Number> MorsaliBrey(ArrayList<Number> mass, int num) {
         Random random = new Random();
         Number X[] = new Number[400];
         Number a1, a2;
@@ -94,8 +140,8 @@ public class Hromov {
             double s = 0;
             while (btmp) {
 
-                a1 = (random.nextInt() % 10000) * (0.0001);
-                a2 = (random.nextInt() % 10000) * (0.0001);
+                a1 = random.nextDouble();
+                a2 = random.nextDouble();
 
                 s = Math.pow((a1.doubleValue() * 2 - 1), 2) + Math.pow((a2.doubleValue() * 2 - 1), 2);
                 if (s > 0 && s < 1) { btmp = false; }
@@ -106,7 +152,7 @@ public class Hromov {
         return mass;
     }
 
-    public void Sample_mean(ArrayList<Number> mass, int num) {
+    private void Sample_mean(ArrayList<Number> mass, int num) {
         double s = 0;
         double skv = 0;
         Number sred = 0;
@@ -127,7 +173,7 @@ public class Hromov {
 
 
     //////////Симметричность распределения/////////////
-    public void Symmetry(ArrayList<Number> mass, int num) {
+    private void Symmetry(ArrayList<Number> mass, int num) {
         double[] hit = new double[8];
         ArrayList<Number> tmp = new ArrayList<Number>();
         int Sum = 0;
@@ -182,105 +228,26 @@ public class Hromov {
         System.out.println(" ; Сумма Xi2 = " + Xi);
     }
 
-
-    public void mainForLaba2() {
-        int num = 100;
-
-        System.out.println("1.	Метод, основанный на центральной предельной теореме ");
-        System.out.println("Massive ");
-
-        ArrayList<Number> nmass = new ArrayList<Number>();
-        nmass = this.RG(nmass, num);
-//        Print(nmass, num);
-        Sample_mean(nmass, num);
-//        Expected(nmass, num);
-//        SKO2(nmass, num);
-
-        System.out.println("Проверка сходения к 0");
-
-        for (int i = 10; i < 35; i += 5) {
-            num = 10 * i;
-
-            System.out.println(" N = ");
-
-            RG(nmass, num);
-            Sample_mean(nmass, num);
-
-            System.out.println("--------------");
-
+    private void printArray(ArrayList<Number> arrayList){
+        for (Number item:
+                arrayList) {
+            System.out.println(item);
         }
-        System.out.println("Тест на симметрию");
-
-        num = 240;
-//        RandGen(nmass, num);
-        Symmetry(nmass, num);
+    }
 
 
+    public static Number[][] generationCouplesNumbers(int countCouples){
+        Number[][] couple = new Number[countCouples][2];
 
-        System.out.println("2.	Метод Бокса-Мюллера ");
-
-        System.out.println( "Massive ");
-
-        ArrayList<Number> bmass = new ArrayList<Number>();
-        num = 100;
-        nmass = BoxMuller(bmass, num);
-//        Print(bmass, num);
-//        Expected(nmass, num);
-//        SKO2(nmass, num);
-
-        System.out.println("Проверка сходения к 0");
-
-        for (int i = 10; i < 35; i += 5) {
-            num = 10 * i;
-
-            System.out.println(" N = ");
-
-            BoxMuller(bmass, num);
-            Sample_mean(nmass, num);
-
-            System.out.println("--------------");
-
+        for (int i = 0; i < countCouples; i++){
+            Random random = new Random();
+            Number randValue1 = random.nextDouble();
+            Number randValue2 = random.nextDouble();
+            couple[i][0] = randValue1;
+            couple[i][1] = randValue2;
         }
 
-        System.out.println("Тест на симметрию");
-
-        num = 240;
-        BoxMuller(bmass, num);
-        Symmetry(bmass, num);
-
-
-
-
-        System.out.println("3.	Метод Марсальи-Брея ");
-
-        System.out.println("Massive ");
-
-        ArrayList<Number> mbmass = new ArrayList<Number>();
-        num = 100;
-        nmass = MorsaliBrey(mbmass, num);
-//        Print(mbmass, num);
-//        Expected(mbmass, num);
-//        SKO2(mbmass, num);
-
-        System.out.println("Проверка сходения к 0");
-
-        for (int i = 10; i < 35; i += 5) {
-            num = 10 * i;
-
-            System.out.println(" N = ");
-
-            MorsaliBrey(mbmass, num);
-            Sample_mean(nmass, num);
-
-            System.out.println( "--------------");
-
-        }
-
-        System.out.println("Тест на симметрию");
-
-        num = 240;
-        BoxMuller(bmass, num);
-        Symmetry(bmass, num);
+        return couple;
     }
 
 }
