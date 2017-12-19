@@ -37,10 +37,10 @@ public class GUI extends JFrame {
     private JLabel label3;
 
     //кнопки RadioButton
-    private JRadioButton lab1 = new JRadioButton("Лабораторная работа №1");
-    private JRadioButton lab2 = new JRadioButton("Лабораторная работа №2");
-    private JRadioButton lab3 = new JRadioButton("Лабораторная работа №3");
-    private JRadioButton lab4 = new JRadioButton("Лабораторная работа №4");
+    private JRadioButton lab1;
+    private JRadioButton lab2;
+    private JRadioButton lab3;
+    private JRadioButton lab4;
 
     //поле для ввода арuгументов
     private JTextField input = new JTextField();
@@ -77,6 +77,9 @@ public class GUI extends JFrame {
         //инициализируем заголовки
         initLabels();
 
+        //кнопки RadioButton
+        initRadioButtons();
+
         //установим параметры
         GridBagConstraints gbs = new GridBagConstraints();
         gbs.insets = new Insets(25, 0, 0, 0);
@@ -84,26 +87,7 @@ public class GUI extends JFrame {
         gbs.gridy = GridBagConstraints.RELATIVE;
         gbs.anchor = GridBagConstraints.WEST;
 
-        //создадим группу для radiobutton
-        ButtonGroup group = new ButtonGroup();
-
-        //раскрасим надписи к radiobutton
-        lab1.setForeground(Color.BLUE);
-        lab2.setForeground(Color.BLUE);
-        lab3.setForeground(Color.BLUE);
-        lab4.setForeground(Color.BLUE);
-
-        //добавим listener к radiobutton
-        lab1.addActionListener(listener);
-        lab2.addActionListener(listener);
-        lab3.addActionListener(listener);
-        lab4.addActionListener(listener);
-
-        // Добавим radiobutton в группу и на панель
-        group.add(lab1);
-        group.add(lab2);
-        group.add(lab3);
-        group.add(lab4);
+        //добавим RadioButtons к panel
         panel.add(lab1, gbs);
         panel.add(lab2, gbs);
         panel.add(lab3, gbs);
@@ -426,4 +410,31 @@ public class GUI extends JFrame {
         label3.setForeground(Color.BLUE);
     }
 
+    private void initRadioButtons(){
+        lab1 = new JRadioButton("Лабораторная работа №1");
+        lab2 = new JRadioButton("Лабораторная работа №2");
+        lab3 = new JRadioButton("Лабораторная работа №3");
+        lab4 = new JRadioButton("Лабораторная работа №4");
+
+        //раскрасим надписи к radiobutton
+        lab1.setForeground(Color.BLUE);
+        lab2.setForeground(Color.BLUE);
+        lab3.setForeground(Color.BLUE);
+        lab4.setForeground(Color.BLUE);
+
+        //добавим listener к radiobutton
+        lab1.addActionListener(listener);
+        lab2.addActionListener(listener);
+        lab3.addActionListener(listener);
+        lab4.addActionListener(listener);
+
+        //создадим группу для radiobutton
+        ButtonGroup group = new ButtonGroup();
+
+        // Добавим radiobutton в группу и на панель
+        group.add(lab1);
+        group.add(lab2);
+        group.add(lab3);
+        group.add(lab4);
+    }
 }
