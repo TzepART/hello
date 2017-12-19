@@ -59,127 +59,6 @@ public class GUI extends JFrame {
     // контейнер для размещения компонентов формы
     private Container container = getContentPane();
 
-    // Listener для отслеживания переключения radiobutton
-    ActionListener listener = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            switch ( ((JRadioButton)ae.getSource()).getText() ) {
-                case "Лабораторная работа №1" :
-                    jta2.setText("");
-                    input.setText("");
-                    jta.setText("");
-                    button1.setVisible(true);
-                    button2.setVisible(false);
-                    button3.setVisible(false);
-                    button4.setVisible(false);
-                    jta2.setText("1.Написать приложение которое вводит 3 целых положительных числа из командной строки \n" +
-                            " и находит наибольший общий делитель. Вывести на дисплей введенные числа и полученный результат. \n\n\n\n\n\n\n" +
-                            "Введите 3 аргумента через пробел в поле Введите аргументы и нажмите кнопку ОК.");
-
-                    //Listener для отслеживания нажатия кнопки button1
-                    button1.addActionListener(new ActionListener()
-                    {
-                        public void actionPerformed(ActionEvent e)
-                        {
-                            jta.setText("");
-                            args = input.getText().trim();
-                            Triangle.main(args);
-                        }
-                    });
-                    break;
-                case "Лабораторная работа №2" :
-                    jta2.setText("");
-                    input.setText("");
-                    jta.setText("");
-                    args = null;
-                    button1.setVisible(false);
-                    button2.setVisible(true);
-                    button3.setVisible(false);
-                    button4.setVisible(false);
-                    jta2.setText("2. Есть класс Creature c подклассами Snake, Dog и есть интерфейс Creep c методом creep \n" +
-                            "(например метод выводит:I can creep) и методом whoAmI. Создать унаследованный от Creep\n" +
-                            "подинтерфейс Wriggle c методом wriggle. Класс Snake реализует интерфейс Wriggle, \n" +
-                            "а класс Dog - Creep. Создать массив объектов Сreep, как представителей классов Snake , Dog, \n" +
-                            "состоящий из количества элементов, заданных параметром. Вывести его на дисплей. Для каждого \n" +
-                            "объекта Сreep выполнить все методы, которые реализованы в соответствующих классах. \n" +
-                            "Вывод на дисплей результатов выполнения. \n\n" +
-                            "Аргумент задает размер массива, введите его в поле Введите аргументы и нажмите кнопку ОК.");
-
-                    //Listener для отслеживания нажатия кнопки button2
-                    button2.addActionListener(new ActionListener()
-                    {
-                        public void actionPerformed(ActionEvent e)
-                        {
-                            jta.setText("");
-                            args = input.getText().trim();
-                            Lab2.main(args);
-                        }
-                    });
-                    break;
-                case "Лабораторная работа №3" :
-                    jta2.setText("");
-                    input.setText("");
-                    jta.setText("");
-                    args = null;
-                    button1.setVisible(false);
-                    button2.setVisible(false);
-                    button3.setVisible(true);
-                    button4.setVisible(false);
-                    jta2.setText("3. Создать 2 потока, один из которых записывает любое число в разделенную между \n" +
-                            "потоками переменную, а другой считывает это число.Параметр приложения задаст количество \n" +
-                            " выполнений. Нужно выводить имя работающего потока и - записываемое число для первого потока \n" +
-                            "или считанное число для второго потока . Выполнить задание с использованием конструкции \r\n" +
-                            "synchronized. Не использовать в этом задании флаги для синхронизации потоков, а только \r\n" +
-                            "методы wait и notify. Также не использовать любые задержки для потоков после начала \r\n" +
-                            "их работы в виде методов sleep, yield или wait c параметром. \n\n" +
-                            "Аргумент задает количество выполнений, введите его в поле Введите аргументы и нажмите кнопку ОК.");
-
-                    //Listener для отслеживания нажатия кнопки button3
-                    button3.addActionListener(new ActionListener()
-                    {
-                        public void actionPerformed(ActionEvent e)
-                        {
-                            jta.setText("");
-                            args = input.getText().trim();
-                            Lab3.main(args);
-                        }
-                    });
-                    break;
-                case "Лабораторная работа №4" :
-                    jta2.setText("");
-                    input.setText("");
-                    jta.setText("");
-                    args = null;
-                    button1.setVisible(false);
-                    button2.setVisible(false);
-                    button3.setVisible(false);
-                    button4.setVisible(true);
-                    jta2.setText("4. Создать приложение с 3 потоками для следующей задачи: 3 работника выполняют следующую работу: \r\n" +
-                            "1-ый копает яму, 2-ой сажает дерево, 3-ий подвязывает саженец к кольям. \r\n" +
-                            "Работа идет строго по очереди: пока не подвязан саженец 1 -ый рабочий отдыхает(т.е. поток находится \r\n" +
-                            "в состоянии ожидания), пока не вскопана яма отдыхает 2 рабочий , \r\n" +
-                            "и пока не посажено дерево 3 -й работник отдыхает. Число саженцев задается параметром. \r\n" +
-                            "Использовать ограничения из задания 3. \r\n" +
-                            "Выводить на дисплей номер работника и номер саженца. \n\n" +
-                            "Аргумент задает количество саженцев, введите его в поле Введите аргументы и нажмите кнопку ОК.");
-
-                    //Listener для отслеживания нажатия кнопки button4
-                    button4.addActionListener(new ActionListener()
-                    {
-                        public void actionPerformed(ActionEvent e)
-                        {
-                            jta.setText("");
-                            args = input.getText().trim();
-                            Lab4.main(args);
-                        }
-                    });
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
-
     //конструктор
     GUI() {
         // зададим размеры окна
@@ -338,5 +217,135 @@ public class GUI extends JFrame {
         super.setVisible(true);
         // запретим изменение параметров окна
         super.setResizable(false);
+        super.toFront();
+    }
+
+
+
+    // Listener для отслеживания переключения radiobutton
+    ActionListener listener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            switch ( ((JRadioButton)ae.getSource()).getText() ) {
+                case "Лабораторная работа №1" :
+                    // переменная для передачи параметров
+                    jta2.setText("");
+                    input.setText("");
+                    jta.setText("");
+                    button1.setVisible(true);
+                    button2.setVisible(false);
+                    button3.setVisible(false);
+                    button4.setVisible(false);
+                    jta2.setText("1.Написать приложение которое вводит 3 целых положительных числа из командной строки \n" +
+                            " и находит наибольший общий делитель. Вывести на дисплей введенные числа и полученный результат. \n\n\n\n\n\n\n" +
+                            "Введите 3 аргумента через пробел в поле Введите аргументы и нажмите кнопку ОК.");
+
+                    //Listener для отслеживания нажатия кнопки button1
+                    button1.addActionListener(new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                            jta.setText("");
+                            System.out.println(input.getText().trim());
+                            Triangle.main(GUI.getArrayArgumentsFromString(input.getText().trim()));
+                            GUI.jta.append("Done!");
+                        }
+                    });
+                    break;
+                case "Лабораторная работа №2" :
+                    jta2.setText("");
+                    input.setText("");
+                    jta.setText("");
+                    args = null;
+                    button1.setVisible(false);
+                    button2.setVisible(true);
+                    button3.setVisible(false);
+                    button4.setVisible(false);
+                    jta2.setText("2. Есть класс Creature c подклассами Snake, Dog и есть интерфейс Creep c методом creep \n" +
+                            "(например метод выводит:I can creep) и методом whoAmI. Создать унаследованный от Creep\n" +
+                            "подинтерфейс Wriggle c методом wriggle. Класс Snake реализует интерфейс Wriggle, \n" +
+                            "а класс Dog - Creep. Создать массив объектов Сreep, как представителей классов Snake , Dog, \n" +
+                            "состоящий из количества элементов, заданных параметром. Вывести его на дисплей. Для каждого \n" +
+                            "объекта Сreep выполнить все методы, которые реализованы в соответствующих классах. \n" +
+                            "Вывод на дисплей результатов выполнения. \n\n" +
+                            "Аргумент задает размер массива, введите его в поле Введите аргументы и нажмите кнопку ОК.");
+
+                    //Listener для отслеживания нажатия кнопки button2
+                    button2.addActionListener(new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                            jta.setText("");
+                            args = input.getText().trim();
+//                            Lab2.main(args);
+                        }
+                    });
+                    break;
+                case "Лабораторная работа №3" :
+                    jta2.setText("");
+                    input.setText("");
+                    jta.setText("");
+                    args = null;
+                    button1.setVisible(false);
+                    button2.setVisible(false);
+                    button3.setVisible(true);
+                    button4.setVisible(false);
+                    jta2.setText("3. Создать 2 потока, один из которых записывает любое число в разделенную между \n" +
+                            "потоками переменную, а другой считывает это число.Параметр приложения задаст количество \n" +
+                            " выполнений. Нужно выводить имя работающего потока и - записываемое число для первого потока \n" +
+                            "или считанное число для второго потока . Выполнить задание с использованием конструкции \r\n" +
+                            "synchronized. Не использовать в этом задании флаги для синхронизации потоков, а только \r\n" +
+                            "методы wait и notify. Также не использовать любые задержки для потоков после начала \r\n" +
+                            "их работы в виде методов sleep, yield или wait c параметром. \n\n" +
+                            "Аргумент задает количество выполнений, введите его в поле Введите аргументы и нажмите кнопку ОК.");
+
+                    //Listener для отслеживания нажатия кнопки button3
+                    button3.addActionListener(new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                            jta.setText("");
+                            args = input.getText().trim();
+//                            Lab3.main(args);
+                        }
+                    });
+                    break;
+                case "Лабораторная работа №4" :
+                    jta2.setText("");
+                    input.setText("");
+                    jta.setText("");
+                    args = null;
+                    button1.setVisible(false);
+                    button2.setVisible(false);
+                    button3.setVisible(false);
+                    button4.setVisible(true);
+                    jta2.setText("4. Создать приложение с 3 потоками для следующей задачи: 3 работника выполняют следующую работу: \r\n" +
+                            "1-ый копает яму, 2-ой сажает дерево, 3-ий подвязывает саженец к кольям. \r\n" +
+                            "Работа идет строго по очереди: пока не подвязан саженец 1 -ый рабочий отдыхает(т.е. поток находится \r\n" +
+                            "в состоянии ожидания), пока не вскопана яма отдыхает 2 рабочий , \r\n" +
+                            "и пока не посажено дерево 3 -й работник отдыхает. Число саженцев задается параметром. \r\n" +
+                            "Использовать ограничения из задания 3. \r\n" +
+                            "Выводить на дисплей номер работника и номер саженца. \n\n" +
+                            "Аргумент задает количество саженцев, введите его в поле Введите аргументы и нажмите кнопку ОК.");
+
+                    //Listener для отслеживания нажатия кнопки button4
+                    button4.addActionListener(new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                            jta.setText("");
+                            args = input.getText().trim();
+//                            Lab4.main(args);
+                        }
+                    });
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
+    static String[] getArrayArgumentsFromString(String string){
+        return string.split(" ");
     }
 }

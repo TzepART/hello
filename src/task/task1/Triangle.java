@@ -12,8 +12,8 @@ public class Triangle {
 
     public static void main(String[] args) {
 
-//        double[] sides = getSidesFromArguments(args);
-        double[] sides = getSidesFromConsole();
+        double[] sides = getSidesFromArguments(args);
+//        double[] sides = getSidesFromConsole();
 
         try {
             checkAvailableTriangle(sides);
