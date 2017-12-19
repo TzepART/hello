@@ -246,7 +246,11 @@ public class GUI extends JFrame {
                 "Выполнить задание с использованием конструкции synchronized .\n"+
                 "Не использовать в этом задании флаги для синхронизации потоков,\n"+
                 "а только методы wait и notify. Также не использовать любые задержки для\n"+
-                "потоков после начала их работы в виде методов sleep, yield или wait c параметром.";
+                "потоков после начала их работы в виде методов sleep, yield или wait c параметром.\n\n"+
+                "Введите 2 аргумента через пробел:\n" +
+                "Первый - число циклов для 1го потока, \n" +
+                "Второй - число циклов для 2го потока\n" +
+                "и нажмите кнопку ОК.";
 
         private String textTask4 = "4. Создать приложение с 2 параметрами. 1 параметр задает количество cтудентов,\n"+
                 "2-ой параметр задает количество преподавателей.\n"+
@@ -260,7 +264,11 @@ public class GUI extends JFrame {
                 "Выглядеть это будет примерно так: преподаватель1- студент3\n"+
                 "преподаватель2- студент1\n"+
                 "преподаватель1- студент4\n"+
-                "преподаватель2- студент2";
+                "преподаватель2- студент2\n\n"+
+                "Введите 2 аргумента через пробел:\n" +
+                "Первый - число преподавателей \n" +
+                "Второй - число студентов\n" +
+                "и нажмите кнопку ОК.";
 
 
         @Override
@@ -277,7 +285,7 @@ public class GUI extends JFrame {
                         {
                             jta.setText("");
                             String result = task1.getResult(GUI.getArrayArgumentsFromString(input.getText().trim()));
-                            GUI.jta.append(result);
+                            jta.append(result);
                         }
                     });
                     break;
@@ -292,13 +300,12 @@ public class GUI extends JFrame {
                         {
                             jta.setText("");
                             String result = task2.getResult();
-                            GUI.jta.append(result);
+                            jta.append(result);
                         }
                     });
                     break;
                 case "Лабораторная работа №3" :
                     setEmptyFields();
-                    args = null;
                     setVisibleButton(3);
                     setTextToTaskTextField(textTask3);
 
@@ -314,7 +321,6 @@ public class GUI extends JFrame {
                     break;
                 case "Лабораторная работа №4" :
                     setEmptyFields();
-                    args = null;
                     setVisibleButton(4);
                     setTextToTaskTextField(textTask4);
 
@@ -362,7 +368,7 @@ public class GUI extends JFrame {
                 label2.setForeground(Color.RED);
                 break;
             case 4 :
-                button3.setVisible(true);
+                button4.setVisible(true);
                 input.setEnabled(true);
                 label2.setForeground(Color.RED);
                 break;

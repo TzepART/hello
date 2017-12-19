@@ -20,7 +20,7 @@ final class Teacher extends Thread {
                     try {
                         this.wait();
                     } catch (InterruptedException e) {
-                        System.out.println("Interrupted thread");
+                        classRoom.getJta().append("Interrupted thread");
                     }
                 }
             }else{

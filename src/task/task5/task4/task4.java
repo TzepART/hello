@@ -6,29 +6,33 @@ import javax.swing.*;
 public class task4 {
 
     public static void getResult(String[] args, JTextArea jta) {
-        Integer countTeachers = 0;
-        Integer countStudents = 0;
+        Integer countTeachers;
+        Integer countStudents;
 
         try {
             countTeachers = Integer.parseInt(args[0]);
             countStudents = Integer.parseInt(args[1]);
         }catch (NumberFormatException exc){
-            System.out.println("Неверный формат аргументов");
+            jta.append("Неверный формат аргументов");
+            return;
+        }catch(ArrayIndexOutOfBoundsException e){
+            jta.append("Ошибка в количестве параметров");
+            return;
         }
 
         if(countTeachers == 0){
-            System.out.println("Число учтелей 0");
+            jta.append("Число учтелей 0");
         }else if(countStudents == 0){
-            System.out.println("Число студентов 0");
+            jta.append("Число студентов 0");
         }else{
-            ClassRoom classRoom = new ClassRoom(countStudents);
+            ClassRoom classRoom = new ClassRoom(countStudents,jta);
             Teacher[] teachers = getTeachers(countTeachers, classRoom);
 
             //запускаем первый
             teachers[0].start();
 
 //            for (Teacher teacher: teachers){
-////                System.out.println(teacher.getName()+" - "+teacher.getNextTeacher().getName());
+////                jta.append(teacher.getName()+" - "+teacher.getNextTeacher().getName());
 //                teacher.start();
 //                try {
 //                    teacher.sleep(5);

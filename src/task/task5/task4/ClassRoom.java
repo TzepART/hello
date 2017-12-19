@@ -1,5 +1,6 @@
 package task.task5.task4;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -15,9 +16,11 @@ import java.util.Random;
 public class ClassRoom {
 
     private ArrayList<Student> students;
+    private JTextArea jta;
 
-    ClassRoom(Integer countStudents) {
+    ClassRoom(Integer countStudents, JTextArea jta) {
         this.students = new ArrayList<Student>(countStudents);
+        this.jta = jta;
         this.setStudents(countStudents);
     }
 
@@ -58,9 +61,7 @@ public class ClassRoom {
 
         //вывести имя рандомного студента
         //вывести имя преподавателя
-        System.out.print(teacher.getName());
-        System.out.print(" - ");
-        System.out.println(student.getName());
+        jta.append(teacher.getName()+" - "+student.getName()+"\n");
 
         return student;
     }
@@ -96,5 +97,9 @@ public class ClassRoom {
         }else {
             return false;
         }
+    }
+
+    public JTextArea getJta() {
+        return jta;
     }
 }
