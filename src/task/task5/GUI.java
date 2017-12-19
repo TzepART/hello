@@ -7,6 +7,7 @@ import javax.swing.border.TitledBorder;
 
 import task.task5.task1.task1;
 import task.task5.task2.task2;
+import task.task5.task3.task3;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -79,7 +80,7 @@ public class GUI extends JFrame {
         main_panel.setLayout(new BorderLayout());
 
         // установим зеленую рамку
-        panel.setBorder(BorderFactory.createLineBorder(Color.green));
+        panel.setBorder(BorderFactory.createLineBorder(Color.black));
         // выбираем компоновщик
         panel.setLayout(new GridBagLayout());
 
@@ -124,13 +125,13 @@ public class GUI extends JFrame {
         //раскрасим надписи
         label1.setForeground(Color.BLUE);
         label2.setForeground(Color.RED);
-        label3.setForeground(Color.MAGENTA);
+        label3.setForeground(Color.BLUE);
 
         // рамка вокруг текстового поля
-        jta.setBorder(BorderFactory.createLineBorder(Color.green));
+        jta.setBorder(BorderFactory.createLineBorder(Color.black));
 
         // установим цвет рамки и размеры панели panel2
-        panel2.setBorder(BorderFactory.createLineBorder(Color.green));
+        panel2.setBorder(BorderFactory.createLineBorder(Color.black));
         panel2.setPreferredSize(new Dimension(60,200));
 
         //добавим надпись на панель panel2
@@ -138,7 +139,7 @@ public class GUI extends JFrame {
 
         //установим размеры и цвет рамки scroll-панели и добавим ее на панель panel2
         scroll2.setPreferredSize(new Dimension(610,165));
-        scroll2.setBorder(BorderFactory.createLineBorder(Color.green));
+        scroll2.setBorder(BorderFactory.createLineBorder(Color.black));
         scroll2.setAlignmentX(LEFT_ALIGNMENT);
         panel2.add(scroll2);
 
@@ -148,7 +149,7 @@ public class GUI extends JFrame {
         bv.add(Box.createVerticalStrut(15));
 
         // установим цвет рамки и размеры панели panel3
-        panel3.setBorder(BorderFactory.createLineBorder(Color.green));
+        panel3.setBorder(BorderFactory.createLineBorder(Color.black));
         panel3.setPreferredSize(new Dimension(60,100));
 
         //добавим надпись на панель panel3
@@ -156,7 +157,7 @@ public class GUI extends JFrame {
 
         // установим цвет рамки и размеры поля ввода параметров
         input.setPreferredSize(new Dimension(610,30));
-        input.setBorder(BorderFactory.createLineBorder(Color.green));
+        input.setBorder(BorderFactory.createLineBorder(Color.black));
         input.setAlignmentX(LEFT_ALIGNMENT);
         input.setDisabledTextColor(Color.GRAY);
 
@@ -180,7 +181,7 @@ public class GUI extends JFrame {
         bv.add(Box.createVerticalStrut(15));
 
         // установим цвет рамки и размеры панели panel4
-        panel4.setBorder(BorderFactory.createLineBorder(Color.green));
+        panel4.setBorder(BorderFactory.createLineBorder(Color.black));
         panel4.setPreferredSize(new Dimension(60,210));
 
         //добавим надпись на поле ввода на панель panel4
@@ -188,7 +189,7 @@ public class GUI extends JFrame {
 
         //установим размеры и цвет рамки scroll-панели и добавим ее на панель panel4
         scroll.setPreferredSize(new Dimension(610,175));
-        scroll.setBorder(BorderFactory.createLineBorder(Color.green));
+        scroll.setBorder(BorderFactory.createLineBorder(Color.black));
         scroll.setAlignmentX(LEFT_ALIGNMENT);
         panel4.add(scroll);
 
@@ -239,14 +240,14 @@ public class GUI extends JFrame {
                 " объектов и еще раз выполнить все прежние методы для\n"+
                 " переменной типа I1(используя приведение типов).";
 
-        private String textTask3 = "3. Создать 2 потока, один из которых записывает любое число в разделенную между \n" +
-                "потоками переменную, а другой считывает это число.Параметр приложения задаст количество \n" +
-                " выполнений. Нужно выводить имя работающего потока и - записываемое число для первого потока \n" +
-                "или считанное число для второго потока . Выполнить задание с использованием конструкции \r\n" +
-                "synchronized. Не использовать в этом задании флаги для синхронизации потоков, а только \r\n" +
-                "методы wait и notify. Также не использовать любые задержки для потоков после начала \r\n" +
-                "их работы в виде методов sleep, yield или wait c параметром. \n\n" +
-                "Аргумент задает количество выполнений, введите его в поле Введите аргументы и нажмите кнопку ОК.";
+        private String textTask3 = "3. Создать 2 потока разными способами. Один из этих потоков увеличивает разделенную\n"+
+                "между потоками переменную на 1000, а другой на 10 . Потоки работают попеременно.\n"+
+                "Цикл для каждого потока выполняется число раз заданное параметром.\n"+
+                "Нужно выводить для каждого потока его имя и значение измененной переменной.\n"+
+                "Выполнить задание с использованием конструкции synchronized .\n"+
+                "Не использовать в этом задании флаги для синхронизации потоков,\n"+
+                "а только методы wait и notify. Также не использовать любые задержки для\n"+
+                "потоков после начала их работы в виде методов sleep, yield или wait c параметром.";
 
         private String textTask4 = "4. Создать приложение с 3 потоками для следующей задачи: 3 работника выполняют следующую работу: \r\n" +
                 "1-ый копает яму, 2-ой сажает дерево, 3-ий подвязывает саженец к кольям. \r\n" +
@@ -302,8 +303,9 @@ public class GUI extends JFrame {
                         public void actionPerformed(ActionEvent e)
                         {
                             jta.setText("");
-                            args = input.getText().trim();
-//                            Lab3.main(args);
+                            String[] params = GUI.getArrayArgumentsFromString(input.getText().trim());
+                            task3.main(params);
+//                            String result = task1.getResult(params);
                         }
                     });
                     break;
