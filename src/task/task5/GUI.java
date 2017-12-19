@@ -5,10 +5,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-import task.task1.*;
-import task.task2.*;
-import task.task3.*;
-import task.task4.*;
+import task.task5.task1.task1;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,6 +19,7 @@ public class GUI extends JFrame {
     private JButton button2 = new JButton("OK");
     private JButton button3 = new JButton("OK");
     private JButton button4 = new JButton("OK");
+    private JButton[] buttons = {button1,button2,button3,button4};
 
     //панели
     private JPanel main_panel = new JPanel();
@@ -168,10 +166,7 @@ public class GUI extends JFrame {
         button4.setPreferredSize(new Dimension(90,30));
 
         //сделаем кнопки невидимыми
-        button1.setVisible(false);
-        button2.setVisible(false);
-        button3.setVisible(false);
-        button4.setVisible(false);
+        setInvisibleButtons();
 
         // добавим кнопки на панель panel3
         panel3.add(button1);
@@ -224,21 +219,48 @@ public class GUI extends JFrame {
 
     // Listener для отслеживания переключения radiobutton
     ActionListener listener = new ActionListener() {
+
+        private String textTask1 = "1. Приложение с 3 параметрами. Необходимо определить  могут ли быть \n" +
+                "введенные параметры сторонами треугольника и вывести сообщение \n" +
+                "в случае, если это невозможно. \n\n" +
+                "Введите 3 аргумента через пробел в поле Введите аргументы и нажмите кнопку ОК.";
+
+        private String textTask2 = "2. Есть класс Creature c подклассами Snake, Dog и есть интерфейс Creep c методом creep \n" +
+                "(например метод выводит:I can creep) и методом whoAmI. Создать унаследованный от Creep\n" +
+                "подинтерфейс Wriggle c методом wriggle. Класс Snake реализует интерфейс Wriggle, \n" +
+                "а класс Dog - Creep. Создать массив объектов Сreep, как представителей классов Snake , Dog, \n" +
+                "состоящий из количества элементов, заданных параметром. Вывести его на дисплей. Для каждого \n" +
+                "объекта Сreep выполнить все методы, которые реализованы в соответствующих классах. \n" +
+                "Вывод на дисплей результатов выполнения. \n\n" +
+                "Аргумент задает размер массива, введите его в поле Введите аргументы и нажмите кнопку ОК.";
+
+        private String textTask3 = "3. Создать 2 потока, один из которых записывает любое число в разделенную между \n" +
+                "потоками переменную, а другой считывает это число.Параметр приложения задаст количество \n" +
+                " выполнений. Нужно выводить имя работающего потока и - записываемое число для первого потока \n" +
+                "или считанное число для второго потока . Выполнить задание с использованием конструкции \r\n" +
+                "synchronized. Не использовать в этом задании флаги для синхронизации потоков, а только \r\n" +
+                "методы wait и notify. Также не использовать любые задержки для потоков после начала \r\n" +
+                "их работы в виде методов sleep, yield или wait c параметром. \n\n" +
+                "Аргумент задает количество выполнений, введите его в поле Введите аргументы и нажмите кнопку ОК.";
+
+        private String textTask4 = "4. Создать приложение с 3 потоками для следующей задачи: 3 работника выполняют следующую работу: \r\n" +
+                "1-ый копает яму, 2-ой сажает дерево, 3-ий подвязывает саженец к кольям. \r\n" +
+                "Работа идет строго по очереди: пока не подвязан саженец 1 -ый рабочий отдыхает(т.е. поток находится \r\n" +
+                "в состоянии ожидания), пока не вскопана яма отдыхает 2 рабочий , \r\n" +
+                "и пока не посажено дерево 3 -й работник отдыхает. Число саженцев задается параметром. \r\n" +
+                "Использовать ограничения из задания 3. \r\n" +
+                "Выводить на дисплей номер работника и номер саженца. \n\n" +
+                "Аргумент задает количество саженцев, введите его в поле Введите аргументы и нажмите кнопку ОК.";
+
+
         @Override
         public void actionPerformed(ActionEvent ae) {
             switch ( ((JRadioButton)ae.getSource()).getText() ) {
                 case "Лабораторная работа №1" :
                     // переменная для передачи параметров
-                    jta2.setText("");
-                    input.setText("");
-                    jta.setText("");
-                    button1.setVisible(true);
-                    button2.setVisible(false);
-                    button3.setVisible(false);
-                    button4.setVisible(false);
-                    jta2.setText("1.Написать приложение которое вводит 3 целых положительных числа из командной строки \n" +
-                            " и находит наибольший общий делитель. Вывести на дисплей введенные числа и полученный результат. \n\n\n\n\n\n\n" +
-                            "Введите 3 аргумента через пробел в поле Введите аргументы и нажмите кнопку ОК.");
+                    setEmptyFields();
+                    setVisibleButton(1);
+                    jta2.setText(textTask1);
 
                     //Listener для отслеживания нажатия кнопки button1
                     button1.addActionListener(new ActionListener()
@@ -246,29 +268,15 @@ public class GUI extends JFrame {
                         public void actionPerformed(ActionEvent e)
                         {
                             jta.setText("");
-                            System.out.println(input.getText().trim());
-                            Triangle.main(GUI.getArrayArgumentsFromString(input.getText().trim()));
-                            GUI.jta.append("Done!");
+                            GUI.jta.append(task1.getResult(GUI.getArrayArgumentsFromString(input.getText().trim())));
                         }
                     });
                     break;
                 case "Лабораторная работа №2" :
-                    jta2.setText("");
-                    input.setText("");
-                    jta.setText("");
+                    setEmptyFields();
                     args = null;
-                    button1.setVisible(false);
-                    button2.setVisible(true);
-                    button3.setVisible(false);
-                    button4.setVisible(false);
-                    jta2.setText("2. Есть класс Creature c подклассами Snake, Dog и есть интерфейс Creep c методом creep \n" +
-                            "(например метод выводит:I can creep) и методом whoAmI. Создать унаследованный от Creep\n" +
-                            "подинтерфейс Wriggle c методом wriggle. Класс Snake реализует интерфейс Wriggle, \n" +
-                            "а класс Dog - Creep. Создать массив объектов Сreep, как представителей классов Snake , Dog, \n" +
-                            "состоящий из количества элементов, заданных параметром. Вывести его на дисплей. Для каждого \n" +
-                            "объекта Сreep выполнить все методы, которые реализованы в соответствующих классах. \n" +
-                            "Вывод на дисплей результатов выполнения. \n\n" +
-                            "Аргумент задает размер массива, введите его в поле Введите аргументы и нажмите кнопку ОК.");
+                    setVisibleButton(2);
+                    jta2.setText(textTask2);
 
                     //Listener для отслеживания нажатия кнопки button2
                     button2.addActionListener(new ActionListener()
@@ -282,22 +290,10 @@ public class GUI extends JFrame {
                     });
                     break;
                 case "Лабораторная работа №3" :
-                    jta2.setText("");
-                    input.setText("");
-                    jta.setText("");
+                    setEmptyFields();
                     args = null;
-                    button1.setVisible(false);
-                    button2.setVisible(false);
-                    button3.setVisible(true);
-                    button4.setVisible(false);
-                    jta2.setText("3. Создать 2 потока, один из которых записывает любое число в разделенную между \n" +
-                            "потоками переменную, а другой считывает это число.Параметр приложения задаст количество \n" +
-                            " выполнений. Нужно выводить имя работающего потока и - записываемое число для первого потока \n" +
-                            "или считанное число для второго потока . Выполнить задание с использованием конструкции \r\n" +
-                            "synchronized. Не использовать в этом задании флаги для синхронизации потоков, а только \r\n" +
-                            "методы wait и notify. Также не использовать любые задержки для потоков после начала \r\n" +
-                            "их работы в виде методов sleep, yield или wait c параметром. \n\n" +
-                            "Аргумент задает количество выполнений, введите его в поле Введите аргументы и нажмите кнопку ОК.");
+                    setVisibleButton(3);
+                    jta2.setText(textTask3);
 
                     //Listener для отслеживания нажатия кнопки button3
                     button3.addActionListener(new ActionListener()
@@ -311,22 +307,10 @@ public class GUI extends JFrame {
                     });
                     break;
                 case "Лабораторная работа №4" :
-                    jta2.setText("");
-                    input.setText("");
-                    jta.setText("");
+                    setEmptyFields();
                     args = null;
-                    button1.setVisible(false);
-                    button2.setVisible(false);
-                    button3.setVisible(false);
-                    button4.setVisible(true);
-                    jta2.setText("4. Создать приложение с 3 потоками для следующей задачи: 3 работника выполняют следующую работу: \r\n" +
-                            "1-ый копает яму, 2-ой сажает дерево, 3-ий подвязывает саженец к кольям. \r\n" +
-                            "Работа идет строго по очереди: пока не подвязан саженец 1 -ый рабочий отдыхает(т.е. поток находится \r\n" +
-                            "в состоянии ожидания), пока не вскопана яма отдыхает 2 рабочий , \r\n" +
-                            "и пока не посажено дерево 3 -й работник отдыхает. Число саженцев задается параметром. \r\n" +
-                            "Использовать ограничения из задания 3. \r\n" +
-                            "Выводить на дисплей номер работника и номер саженца. \n\n" +
-                            "Аргумент задает количество саженцев, введите его в поле Введите аргументы и нажмите кнопку ОК.");
+                    setVisibleButton(4);
+                    jta2.setText(textTask4);
 
                     //Listener для отслеживания нажатия кнопки button4
                     button4.addActionListener(new ActionListener()
@@ -347,5 +331,40 @@ public class GUI extends JFrame {
 
     static String[] getArrayArgumentsFromString(String string){
         return string.split(" ");
+    }
+
+    protected void setVisibleButton(int visibleButton) {
+        setInvisibleButtons();
+        switch (visibleButton){
+            case 1 :
+                button1.setVisible(true);
+                break;
+            case 2 :
+                button2.setVisible(true);
+                break;
+            case 3 :
+                button3.setVisible(true);
+                break;
+            case 4 :
+                button3.setVisible(true);
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    protected void setInvisibleButtons() {
+        button1.setVisible(false);
+        button2.setVisible(false);
+        button3.setVisible(false);
+        button4.setVisible(false);
+    }
+
+
+    protected void setEmptyFields() {
+        jta2.setText("");
+        input.setText("");
+        jta.setText("");
     }
 }
