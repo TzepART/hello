@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import task.task5.task1.task1;
+import task.task5.task2.task2;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -93,10 +94,10 @@ public class GUI extends JFrame {
         ButtonGroup group = new ButtonGroup();
 
         //раскрасим надписи к radiobutton
-        lab1.setForeground(Color.RED);
+        lab1.setForeground(Color.BLUE);
         lab2.setForeground(Color.BLUE);
-        lab3.setForeground(Color.MAGENTA);
-        lab4.setForeground(Color.ORANGE);
+        lab3.setForeground(Color.BLUE);
+        lab4.setForeground(Color.BLUE);
 
         //добавим listener к radiobutton
         lab1.addActionListener(listener);
@@ -157,6 +158,7 @@ public class GUI extends JFrame {
         input.setPreferredSize(new Dimension(610,30));
         input.setBorder(BorderFactory.createLineBorder(Color.green));
         input.setAlignmentX(LEFT_ALIGNMENT);
+        input.setDisabledTextColor(Color.GRAY);
 
         //добавим надпись на поле ввода на панель panel3
         panel3.add(input);
@@ -224,14 +226,18 @@ public class GUI extends JFrame {
                 "в случае, если это невозможно. \n\n" +
                 "Введите 3 аргумента через пробел в поле Введите аргументы и нажмите кнопку ОК.";
 
-        private String textTask2 = "2. Есть класс Creature c подклассами Snake, Dog и есть интерфейс Creep c методом creep \n" +
-                "(например метод выводит:I can creep) и методом whoAmI. Создать унаследованный от Creep\n" +
-                "подинтерфейс Wriggle c методом wriggle. Класс Snake реализует интерфейс Wriggle, \n" +
-                "а класс Dog - Creep. Создать массив объектов Сreep, как представителей классов Snake , Dog, \n" +
-                "состоящий из количества элементов, заданных параметром. Вывести его на дисплей. Для каждого \n" +
-                "объекта Сreep выполнить все методы, которые реализованы в соответствующих классах. \n" +
-                "Вывод на дисплей результатов выполнения. \n\n" +
-                "Аргумент задает размер массива, введите его в поле Введите аргументы и нажмите кнопку ОК.";
+        private String textTask2 = "2. Создать приложение с 2 классами- А, B  и 2 интерфейсами I1, I2.\n"+
+                "Класс А является родительским для класса B,\n"+
+                " Интерфейс I1 является родительским для интерфейса I2.\n"+
+                "Класс A реализует интерфейс I1.\n"+
+                "Класс В реализует интерфейс I2.\n"+
+                "Интерфейс I1 содержит метод i1, класс А  содержит метод а1, интерфейс I2 содержит \n"+
+                "метод i2. Класс B содержит метод b1.\n"+
+                "Все методы выводят строку с именем своего класса или интерфейса и именем метода.\n"+
+                "Создать минимальное число объектов для выполнения всех указанных 4 методов.\n"+
+                "и выполнить все эти методы. Присвоить переменным типа I1  каждый из созданных\n"+
+                " объектов и еще раз выполнить все прежние методы для\n"+
+                " переменной типа I1(используя приведение типов).";
 
         private String textTask3 = "3. Создать 2 потока, один из которых записывает любое число в разделенную между \n" +
                 "потоками переменную, а другой считывает это число.Параметр приложения задаст количество \n" +
@@ -265,13 +271,13 @@ public class GUI extends JFrame {
                         public void actionPerformed(ActionEvent e)
                         {
                             jta.setText("");
-                            GUI.jta.append(task1.getResult(GUI.getArrayArgumentsFromString(input.getText().trim())));
+                            String result = task1.getResult(GUI.getArrayArgumentsFromString(input.getText().trim()));
+                            GUI.jta.append(result);
                         }
                     });
                     break;
                 case "Лабораторная работа №2" :
                     setEmptyFields();
-                    args = null;
                     setVisibleButton(2);
                     jta2.setText(textTask2);
 
@@ -280,8 +286,8 @@ public class GUI extends JFrame {
                         public void actionPerformed(ActionEvent e)
                         {
                             jta.setText("");
-                            args = input.getText().trim();
-//                            Lab2.main(args);
+                            String result = task2.getResult();
+                            GUI.jta.append(result);
                         }
                     });
                     break;
@@ -332,15 +338,23 @@ public class GUI extends JFrame {
         switch (visibleButton){
             case 1 :
                 button1.setVisible(true);
+                input.setEnabled(true);
+                label2.setForeground(Color.RED);
                 break;
             case 2 :
                 button2.setVisible(true);
+                input.setEnabled(false);
+                label2.setForeground(Color.GRAY);
                 break;
             case 3 :
                 button3.setVisible(true);
+                input.setEnabled(true);
+                label2.setForeground(Color.RED);
                 break;
             case 4 :
                 button3.setVisible(true);
+                input.setEnabled(true);
+                label2.setForeground(Color.RED);
                 break;
             default:
                 break;
