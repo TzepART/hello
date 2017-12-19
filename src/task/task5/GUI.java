@@ -14,11 +14,13 @@ import java.awt.event.ActionListener;
 public class GUI extends JFrame {
 
     private static final long serialVersionUID = 1L;
+
     //кнопки
     private JButton button1 = new JButton("OK");
     private JButton button2 = new JButton("OK");
     private JButton button3 = new JButton("OK");
     private JButton button4 = new JButton("OK");
+
     private JButton[] buttons = {button1,button2,button3,button4};
 
     //панели
@@ -160,10 +162,7 @@ public class GUI extends JFrame {
         panel3.add(input);
 
         //зададим размеры кнопкам
-        button1.setPreferredSize(new Dimension(90,30));
-        button2.setPreferredSize(new Dimension(90,30));
-        button3.setPreferredSize(new Dimension(90,30));
-        button4.setPreferredSize(new Dimension(90,30));
+        setSizeToButtons();
 
         //сделаем кнопки невидимыми
         setInvisibleButtons();
@@ -190,6 +189,7 @@ public class GUI extends JFrame {
         scroll.setBorder(BorderFactory.createLineBorder(Color.green));
         scroll.setAlignmentX(LEFT_ALIGNMENT);
         panel4.add(scroll);
+
         // уберем панель panel4 в ящик
         bv.add(panel4);
 
@@ -214,7 +214,6 @@ public class GUI extends JFrame {
         super.setResizable(false);
         super.toFront();
     }
-
 
 
     // Listener для отслеживания переключения radiobutton
@@ -257,14 +256,12 @@ public class GUI extends JFrame {
         public void actionPerformed(ActionEvent ae) {
             switch ( ((JRadioButton)ae.getSource()).getText() ) {
                 case "Лабораторная работа №1" :
-                    // переменная для передачи параметров
                     setEmptyFields();
                     setVisibleButton(1);
                     jta2.setText(textTask1);
 
                     //Listener для отслеживания нажатия кнопки button1
-                    button1.addActionListener(new ActionListener()
-                    {
+                    button1.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e)
                         {
                             jta.setText("");
@@ -279,8 +276,7 @@ public class GUI extends JFrame {
                     jta2.setText(textTask2);
 
                     //Listener для отслеживания нажатия кнопки button2
-                    button2.addActionListener(new ActionListener()
-                    {
+                    button2.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e)
                         {
                             jta.setText("");
@@ -296,8 +292,7 @@ public class GUI extends JFrame {
                     jta2.setText(textTask3);
 
                     //Listener для отслеживания нажатия кнопки button3
-                    button3.addActionListener(new ActionListener()
-                    {
+                    button3.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e)
                         {
                             jta.setText("");
@@ -313,8 +308,7 @@ public class GUI extends JFrame {
                     jta2.setText(textTask4);
 
                     //Listener для отслеживания нажатия кнопки button4
-                    button4.addActionListener(new ActionListener()
-                    {
+                    button4.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e)
                         {
                             jta.setText("");
@@ -333,7 +327,7 @@ public class GUI extends JFrame {
         return string.split(" ");
     }
 
-    protected void setVisibleButton(int visibleButton) {
+    private void setVisibleButton(int visibleButton) {
         setInvisibleButtons();
         switch (visibleButton){
             case 1 :
@@ -354,7 +348,7 @@ public class GUI extends JFrame {
 
     }
 
-    protected void setInvisibleButtons() {
+    private void setInvisibleButtons() {
         button1.setVisible(false);
         button2.setVisible(false);
         button3.setVisible(false);
@@ -362,9 +356,17 @@ public class GUI extends JFrame {
     }
 
 
-    protected void setEmptyFields() {
+    private void setEmptyFields() {
         jta2.setText("");
         input.setText("");
         jta.setText("");
     }
+
+    private void setSizeToButtons() {
+        button1.setPreferredSize(new Dimension(90,30));
+        button2.setPreferredSize(new Dimension(90,30));
+        button3.setPreferredSize(new Dimension(90,30));
+        button4.setPreferredSize(new Dimension(90,30));
+    }
+
 }
