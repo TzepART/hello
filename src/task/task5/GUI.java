@@ -25,16 +25,16 @@ public class GUI extends JFrame {
     private JButton button4;
 
     //панели
-    private JPanel main_panel = new JPanel();
-    private JPanel panel = new JPanel();
-    private JPanel panel2 = new JPanel();
-    private JPanel panel3 = new JPanel();
-    private JPanel panel4 = new JPanel();
+    private JPanel main_panel;
+    private JPanel panel;
+    private JPanel panel2;
+    private JPanel panel3;
+    private JPanel panel4;
 
-    //лабели
-    private JLabel label1 = new JLabel("Описание задания:");
-    private JLabel label2 = new JLabel("Введите аргументы:");
-    private JLabel label3 = new JLabel("Результат работы программы:");
+    //Заголовки
+    private JLabel label1;
+    private JLabel label2;
+    private JLabel label3;
 
     //кнопки RadioButton
     private JRadioButton lab1 = new JRadioButton("Лабораторная работа №1");
@@ -64,28 +64,22 @@ public class GUI extends JFrame {
     GUI() {
         // зададим размеры окна
         super.setSize(830, 585);
+
         //заголовок
         super.setTitle("Лабораторная работа №5");
-        //сделаем видимой главную панель
-        main_panel.setVisible(true);
-        //добавим панели на фрейм
-        super.add(main_panel);
-        super.add(panel);
+
         //установим окно по центру экрана
         super.setLocationRelativeTo(null);
 
-        main_panel.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new TitledBorder("")));
-        // выбираем компоновщик
-        main_panel.setLayout(new BorderLayout());
+        //инициализируем панели
+        initPanels();
 
-        // установим зеленую рамку
-        panel.setBorder(BorderFactory.createLineBorder(Color.black));
-        // выбираем компоновщик
-        panel.setLayout(new GridBagLayout());
+        //инициализируем заголовки
+        initLabels();
 
         //установим параметры
         GridBagConstraints gbs = new GridBagConstraints();
-        gbs.insets = new Insets(25,0,0,0);
+        gbs.insets = new Insets(25, 0, 0, 0);
         gbs.gridx = 0;
         gbs.gridy = GridBagConstraints.RELATIVE;
         gbs.anchor = GridBagConstraints.WEST;
@@ -110,10 +104,10 @@ public class GUI extends JFrame {
         group.add(lab2);
         group.add(lab3);
         group.add(lab4);
-        panel.add(lab1,gbs);
-        panel.add(lab2,gbs);
-        panel.add(lab3,gbs);
-        panel.add(lab4,gbs);
+        panel.add(lab1, gbs);
+        panel.add(lab2, gbs);
+        panel.add(lab3, gbs);
+        panel.add(lab4, gbs);
 
         // создадим ящик и будем укладывать в него элементы
         Box bv = new Box(BoxLayout.Y_AXIS);
@@ -121,23 +115,15 @@ public class GUI extends JFrame {
         // минимальная ширина текстовых полей
         bv.add(Box.createHorizontalStrut(60));
 
-        //раскрасим надписи
-        label1.setForeground(Color.BLUE);
-        label2.setForeground(Color.RED);
-        label3.setForeground(Color.BLUE);
-
         // рамка вокруг текстового поля
         jta.setBorder(BorderFactory.createLineBorder(Color.black));
 
-        // установим цвет рамки и размеры панели panel2
-        panel2.setBorder(BorderFactory.createLineBorder(Color.black));
-        panel2.setPreferredSize(new Dimension(60,200));
 
         //добавим надпись на панель panel2
         panel2.add(label1);
 
         //установим размеры и цвет рамки scroll-панели и добавим ее на панель panel2
-        scroll2.setPreferredSize(new Dimension(610,165));
+        scroll2.setPreferredSize(new Dimension(610, 165));
         scroll2.setBorder(BorderFactory.createLineBorder(Color.black));
         scroll2.setAlignmentX(LEFT_ALIGNMENT);
         panel2.add(scroll2);
@@ -147,15 +133,11 @@ public class GUI extends JFrame {
         // пустое место в 15 пикселей
         bv.add(Box.createVerticalStrut(15));
 
-        // установим цвет рамки и размеры панели panel3
-        panel3.setBorder(BorderFactory.createLineBorder(Color.black));
-        panel3.setPreferredSize(new Dimension(60,100));
-
         //добавим надпись на панель panel3
         panel3.add(label2);
 
         // установим цвет рамки и размеры поля ввода параметров
-        input.setPreferredSize(new Dimension(610,30));
+        input.setPreferredSize(new Dimension(610, 30));
         input.setBorder(BorderFactory.createLineBorder(Color.black));
         input.setAlignmentX(LEFT_ALIGNMENT);
         input.setDisabledTextColor(Color.GRAY);
@@ -181,13 +163,13 @@ public class GUI extends JFrame {
 
         // установим цвет рамки и размеры панели panel4
         panel4.setBorder(BorderFactory.createLineBorder(Color.black));
-        panel4.setPreferredSize(new Dimension(60,210));
+        panel4.setPreferredSize(new Dimension(60, 210));
 
         //добавим надпись на поле ввода на панель panel4
         panel4.add(label3);
 
         //установим размеры и цвет рамки scroll-панели и добавим ее на панель panel4
-        scroll.setPreferredSize(new Dimension(610,175));
+        scroll.setPreferredSize(new Dimension(610, 175));
         scroll.setBorder(BorderFactory.createLineBorder(Color.black));
         scroll.setAlignmentX(LEFT_ALIGNMENT);
         panel4.add(scroll);
@@ -226,45 +208,45 @@ public class GUI extends JFrame {
                 "в случае, если это невозможно. \n\n" +
                 "Введите 3 аргумента через пробел в поле Введите аргументы и нажмите кнопку ОК.";
 
-        private String textTask2 = "2. Создать приложение с 2 классами- А, B  и 2 интерфейсами I1, I2.\n"+
-                "Класс А является родительским для класса B,\n"+
-                " Интерфейс I1 является родительским для интерфейса I2.\n"+
-                "Класс A реализует интерфейс I1.\n"+
-                "Класс В реализует интерфейс I2.\n"+
-                "Интерфейс I1 содержит метод i1, класс А  содержит метод а1, интерфейс I2 содержит \n"+
-                "метод i2. Класс B содержит метод b1.\n"+
-                "Все методы выводят строку с именем своего класса или интерфейса и именем метода.\n"+
-                "Создать минимальное число объектов для выполнения всех указанных 4 методов.\n"+
-                "и выполнить все эти методы. Присвоить переменным типа I1  каждый из созданных\n"+
-                " объектов и еще раз выполнить все прежние методы для\n"+
+        private String textTask2 = "2. Создать приложение с 2 классами- А, B  и 2 интерфейсами I1, I2.\n" +
+                "Класс А является родительским для класса B,\n" +
+                " Интерфейс I1 является родительским для интерфейса I2.\n" +
+                "Класс A реализует интерфейс I1.\n" +
+                "Класс В реализует интерфейс I2.\n" +
+                "Интерфейс I1 содержит метод i1, класс А  содержит метод а1, интерфейс I2 содержит \n" +
+                "метод i2. Класс B содержит метод b1.\n" +
+                "Все методы выводят строку с именем своего класса или интерфейса и именем метода.\n" +
+                "Создать минимальное число объектов для выполнения всех указанных 4 методов.\n" +
+                "и выполнить все эти методы. Присвоить переменным типа I1  каждый из созданных\n" +
+                " объектов и еще раз выполнить все прежние методы для\n" +
                 " переменной типа I1(используя приведение типов).";
 
-        private String textTask3 = "3. Создать 2 потока разными способами. Один из этих потоков увеличивает разделенную\n"+
-                "между потоками переменную на 1000, а другой на 10 . Потоки работают попеременно.\n"+
-                "Цикл для каждого потока выполняется число раз заданное параметром.\n"+
-                "Нужно выводить для каждого потока его имя и значение измененной переменной.\n"+
-                "Выполнить задание с использованием конструкции synchronized .\n"+
-                "Не использовать в этом задании флаги для синхронизации потоков,\n"+
-                "а только методы wait и notify. Также не использовать любые задержки для\n"+
-                "потоков после начала их работы в виде методов sleep, yield или wait c параметром.\n\n"+
+        private String textTask3 = "3. Создать 2 потока разными способами. Один из этих потоков увеличивает разделенную\n" +
+                "между потоками переменную на 1000, а другой на 10 . Потоки работают попеременно.\n" +
+                "Цикл для каждого потока выполняется число раз заданное параметром.\n" +
+                "Нужно выводить для каждого потока его имя и значение измененной переменной.\n" +
+                "Выполнить задание с использованием конструкции synchronized .\n" +
+                "Не использовать в этом задании флаги для синхронизации потоков,\n" +
+                "а только методы wait и notify. Также не использовать любые задержки для\n" +
+                "потоков после начала их работы в виде методов sleep, yield или wait c параметром.\n\n" +
                 "Введите 2 аргумента через пробел:\n" +
                 "Первый - число циклов для 1го потока, \n" +
                 "Второй - число циклов для 2го потока\n" +
                 "и нажмите кнопку ОК.";
 
-        private String textTask4 = "4. Создать приложение с 2 параметрами. 1 параметр задает количество cтудентов,\n"+
-                "2-ой параметр задает количество преподавателей.\n"+
-                "каждый преподаватель строго по очереди приглашает любого студента.\n"+
-                "Как только студент получает приглашение , то поток  студент заканчивается.\n"+
-                "Преподаватель становится после этого последним в очереди преподавателей на вызов студента .\n"+
-                "Потоки - преподаватели должны работать строго по очереди.\n"+
-                "Работа продолжается пока есть хоть один студент и если число преподавателей больше нуля.\n"+
-                "Использовать ограничения из задания 3.\n"+
-                "Выводить на дисплей имя преподавателя вместе с именем студента.\n"+
-                "Выглядеть это будет примерно так: преподаватель1- студент3\n"+
-                "преподаватель2- студент1\n"+
-                "преподаватель1- студент4\n"+
-                "преподаватель2- студент2\n\n"+
+        private String textTask4 = "4. Создать приложение с 2 параметрами. 1 параметр задает количество cтудентов,\n" +
+                "2-ой параметр задает количество преподавателей.\n" +
+                "каждый преподаватель строго по очереди приглашает любого студента.\n" +
+                "Как только студент получает приглашение , то поток  студент заканчивается.\n" +
+                "Преподаватель становится после этого последним в очереди преподавателей на вызов студента .\n" +
+                "Потоки - преподаватели должны работать строго по очереди.\n" +
+                "Работа продолжается пока есть хоть один студент и если число преподавателей больше нуля.\n" +
+                "Использовать ограничения из задания 3.\n" +
+                "Выводить на дисплей имя преподавателя вместе с именем студента.\n" +
+                "Выглядеть это будет примерно так: преподаватель1- студент3\n" +
+                "преподаватель2- студент1\n" +
+                "преподаватель1- студент4\n" +
+                "преподаватель2- студент2\n\n" +
                 "Введите 2 аргумента через пробел:\n" +
                 "Первый - число преподавателей \n" +
                 "Второй - число студентов\n" +
@@ -273,61 +255,57 @@ public class GUI extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            switch ( ((JRadioButton)ae.getSource()).getText() ) {
-                case "Лабораторная работа №1" :
+            switch (((JRadioButton) ae.getSource()).getText()) {
+                case "Лабораторная работа №1":
                     setEmptyFields();
                     setVisibleButton(1);
                     setTextToTaskTextField(textTask1);
 
                     //Listener для отслеживания нажатия кнопки button1
                     button1.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e)
-                        {
+                        public void actionPerformed(ActionEvent e) {
                             jta.setText("");
                             String result = task1.getResult(GUI.getArrayArgumentsFromString(input.getText().trim()));
                             jta.append(result);
                         }
                     });
                     break;
-                case "Лабораторная работа №2" :
+                case "Лабораторная работа №2":
                     setEmptyFields();
                     setVisibleButton(2);
                     setTextToTaskTextField(textTask2);
 
                     //Listener для отслеживания нажатия кнопки button2
                     button2.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e)
-                        {
+                        public void actionPerformed(ActionEvent e) {
                             jta.setText("");
                             String result = task2.getResult();
                             jta.append(result);
                         }
                     });
                     break;
-                case "Лабораторная работа №3" :
+                case "Лабораторная работа №3":
                     setEmptyFields();
                     setVisibleButton(3);
                     setTextToTaskTextField(textTask3);
 
                     //Listener для отслеживания нажатия кнопки button3
                     button3.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e)
-                        {
+                        public void actionPerformed(ActionEvent e) {
                             jta.setText("");
                             String[] params = GUI.getArrayArgumentsFromString(input.getText().trim());
-                            task3.getResult(params,jta);
+                            task3.getResult(params, jta);
                         }
                     });
                     break;
-                case "Лабораторная работа №4" :
+                case "Лабораторная работа №4":
                     setEmptyFields();
                     setVisibleButton(4);
                     setTextToTaskTextField(textTask4);
 
                     //Listener для отслеживания нажатия кнопки button4
                     button4.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e)
-                        {
+                        public void actionPerformed(ActionEvent e) {
                             jta.setText("");
                             String[] params = GUI.getArrayArgumentsFromString(input.getText().trim());
                             task4.getResult(params, jta);
@@ -340,7 +318,7 @@ public class GUI extends JFrame {
         }
     };
 
-    static String[] getArrayArgumentsFromString(String string){
+    static String[] getArrayArgumentsFromString(String string) {
         return string.split(" ");
     }
 
@@ -351,23 +329,23 @@ public class GUI extends JFrame {
 
     private void setVisibleButton(int visibleButton) {
         setInvisibleButtons();
-        switch (visibleButton){
-            case 1 :
+        switch (visibleButton) {
+            case 1:
                 button1.setVisible(true);
                 input.setEnabled(true);
                 label2.setForeground(Color.RED);
                 break;
-            case 2 :
+            case 2:
                 button2.setVisible(true);
                 input.setEnabled(false);
                 label2.setForeground(Color.GRAY);
                 break;
-            case 3 :
+            case 3:
                 button3.setVisible(true);
                 input.setEnabled(true);
                 label2.setForeground(Color.RED);
                 break;
-            case 4 :
+            case 4:
                 button4.setVisible(true);
                 input.setEnabled(true);
                 label2.setForeground(Color.RED);
@@ -398,12 +376,54 @@ public class GUI extends JFrame {
         button3 = new JButton("OK");
         button4 = new JButton("OK");
 
-        button1.setPreferredSize(new Dimension(90,30));
-        button2.setPreferredSize(new Dimension(90,30));
-        button3.setPreferredSize(new Dimension(90,30));
-        button4.setPreferredSize(new Dimension(90,30));
+        button1.setPreferredSize(new Dimension(90, 30));
+        button2.setPreferredSize(new Dimension(90, 30));
+        button3.setPreferredSize(new Dimension(90, 30));
+        button4.setPreferredSize(new Dimension(90, 30));
 
         setInvisibleButtons();
+    }
+
+    private void initPanels() {
+        main_panel = new JPanel();
+        panel = new JPanel();
+        panel2 = new JPanel();
+        panel3 = new JPanel();
+        panel4 = new JPanel();
+
+        //сделаем видимой главную панель
+        main_panel.setVisible(true);
+        //добавим панели на фрейм
+        super.add(main_panel);
+        super.add(panel);
+
+        main_panel.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new TitledBorder("")));
+        // выбираем компоновщик
+        main_panel.setLayout(new BorderLayout());
+
+        // установим рамку
+        panel.setBorder(BorderFactory.createLineBorder(Color.black));
+        // выбираем компоновщик
+        panel.setLayout(new GridBagLayout());
+
+        // установим цвет рамки и размеры панели panel2
+        panel2.setBorder(BorderFactory.createLineBorder(Color.black));
+        panel2.setPreferredSize(new Dimension(60, 200));
+
+        // установим цвет рамки и размеры панели panel3
+        panel3.setBorder(BorderFactory.createLineBorder(Color.black));
+        panel3.setPreferredSize(new Dimension(60, 100));
+    }
+
+    private void initLabels() {
+        label1 = new JLabel("Описание задания:");
+        label2 = new JLabel("Введите аргументы:");
+        label3 = new JLabel("Результат работы программы:");
+
+        //раскрасим надписи
+        label1.setForeground(Color.BLUE);
+        label2.setForeground(Color.RED);
+        label3.setForeground(Color.BLUE);
     }
 
 }
