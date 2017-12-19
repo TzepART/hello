@@ -1,18 +1,26 @@
 package task.task5.task3;
 
 
+import javax.swing.*;
+
 class IncrementClass {
 
     private int value = 0;
 
     private boolean wait = true;
 
+    private JTextArea jta;
+
+
+    public IncrementClass(JTextArea jta) {
+        this.jta = jta;
+    }
 
     synchronized void increment(Integer step, String threadName) {
 
         value = value+step;
-        System.out.print("Поток - "+threadName+"; ");
-        System.out.println("Значение переменной: " + value);
+        jta.append("Поток - "+threadName+"; ");
+        jta.append("Значение переменной: " + value+"\n");
         notify();
         try {
             //Встаем на ожидание только когда есть условие для выполнения попеременности потока
@@ -21,7 +29,7 @@ class IncrementClass {
             }
         }
         catch (InterruptedException e) {
-            System.out.println("Interrupted main thread");
+            jta.append("Interrupted main thread");
         }
     }
 

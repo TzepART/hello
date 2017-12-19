@@ -263,9 +263,7 @@ public class GUI extends JFrame {
                 case "Лабораторная работа №1" :
                     setEmptyFields();
                     setVisibleButton(1);
-                    jta2.setText(textTask1);
-                    jta2.setCaretPosition(0);
-
+                    setTextToTaskTextField(textTask1);
 
                     //Listener для отслеживания нажатия кнопки button1
                     button1.addActionListener(new ActionListener() {
@@ -280,9 +278,7 @@ public class GUI extends JFrame {
                 case "Лабораторная работа №2" :
                     setEmptyFields();
                     setVisibleButton(2);
-                    jta2.setText(textTask2);
-                    jta2.setCaretPosition(0);
-
+                    setTextToTaskTextField(textTask2);
 
                     //Listener для отслеживания нажатия кнопки button2
                     button2.addActionListener(new ActionListener() {
@@ -298,8 +294,7 @@ public class GUI extends JFrame {
                     setEmptyFields();
                     args = null;
                     setVisibleButton(3);
-                    jta2.setText(textTask3);
-                    jta2.setCaretPosition(0);
+                    setTextToTaskTextField(textTask3);
 
                     //Listener для отслеживания нажатия кнопки button3
                     button3.addActionListener(new ActionListener() {
@@ -307,8 +302,7 @@ public class GUI extends JFrame {
                         {
                             jta.setText("");
                             String[] params = GUI.getArrayArgumentsFromString(input.getText().trim());
-                            task3.main(params);
-//                            String result = task1.getResult(params);
+                            task3.getResult(params,jta);
                         }
                     });
                     break;
@@ -316,8 +310,7 @@ public class GUI extends JFrame {
                     setEmptyFields();
                     args = null;
                     setVisibleButton(4);
-                    jta2.setText(textTask4);
-                    jta2.setCaretPosition(0);
+                    setTextToTaskTextField(textTask4);
 
                     //Listener для отслеживания нажатия кнопки button4
                     button4.addActionListener(new ActionListener() {
@@ -337,6 +330,11 @@ public class GUI extends JFrame {
 
     static String[] getArrayArgumentsFromString(String string){
         return string.split(" ");
+    }
+
+    protected void setTextToTaskTextField(String text) {
+        jta2.setText(text);
+        jta2.setCaretPosition(0);
     }
 
     private void setVisibleButton(int visibleButton) {
