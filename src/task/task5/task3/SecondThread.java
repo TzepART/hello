@@ -20,6 +20,5 @@ class SecondThread extends Thread{
             }
             incrementObj.increment(step,this.getName());
         }
-
     }
 }

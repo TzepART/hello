@@ -26,8 +26,9 @@ final class Teacher extends Thread {
             }else{
                 //как только все студенты закончились выводим из wait следующий поток
                 //чтобы он мог завершиться и завршаем поток
-                synchronized(this.nextTeacher) {
-                    this.nextTeacher.notify();
+                Thread.currentThread().interrupt();
+                synchronized(nextTeacher) {
+                    nextTeacher.notify();
                 }
                return;
             }
