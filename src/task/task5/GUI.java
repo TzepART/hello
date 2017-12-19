@@ -18,12 +18,10 @@ public class GUI extends JFrame {
     private static final long serialVersionUID = 1L;
 
     //кнопки
-    private JButton button1 = new JButton("OK");
-    private JButton button2 = new JButton("OK");
-    private JButton button3 = new JButton("OK");
-    private JButton button4 = new JButton("OK");
-
-    private JButton[] buttons = {button1,button2,button3,button4};
+    private JButton button1;
+    private JButton button2;
+    private JButton button3;
+    private JButton button4;
 
     //панели
     private JPanel main_panel = new JPanel();
@@ -165,7 +163,7 @@ public class GUI extends JFrame {
         panel3.add(input);
 
         //зададим размеры кнопкам
-        setSizeToButtons();
+        initButtons();
 
         //сделаем кнопки невидимыми
         setInvisibleButtons();
@@ -266,6 +264,8 @@ public class GUI extends JFrame {
                     setEmptyFields();
                     setVisibleButton(1);
                     jta2.setText(textTask1);
+                    jta2.setCaretPosition(0);
+
 
                     //Listener для отслеживания нажатия кнопки button1
                     button1.addActionListener(new ActionListener() {
@@ -281,6 +281,8 @@ public class GUI extends JFrame {
                     setEmptyFields();
                     setVisibleButton(2);
                     jta2.setText(textTask2);
+                    jta2.setCaretPosition(0);
+
 
                     //Listener для отслеживания нажатия кнопки button2
                     button2.addActionListener(new ActionListener() {
@@ -297,6 +299,7 @@ public class GUI extends JFrame {
                     args = null;
                     setVisibleButton(3);
                     jta2.setText(textTask3);
+                    jta2.setCaretPosition(0);
 
                     //Listener для отслеживания нажатия кнопки button3
                     button3.addActionListener(new ActionListener() {
@@ -314,6 +317,7 @@ public class GUI extends JFrame {
                     args = null;
                     setVisibleButton(4);
                     jta2.setText(textTask4);
+                    jta2.setCaretPosition(0);
 
                     //Listener для отслеживания нажатия кнопки button4
                     button4.addActionListener(new ActionListener() {
@@ -378,11 +382,18 @@ public class GUI extends JFrame {
         jta.setText("");
     }
 
-    private void setSizeToButtons() {
+    private void initButtons() {
+        button1 = new JButton("OK");
+        button2 = new JButton("OK");
+        button3 = new JButton("OK");
+        button4 = new JButton("OK");
+
         button1.setPreferredSize(new Dimension(90,30));
         button2.setPreferredSize(new Dimension(90,30));
         button3.setPreferredSize(new Dimension(90,30));
         button4.setPreferredSize(new Dimension(90,30));
+
+        setInvisibleButtons();
     }
 
 }
