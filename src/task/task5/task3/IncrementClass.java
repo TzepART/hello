@@ -21,6 +21,8 @@ class IncrementClass {
         value = value+step;
         jta.append("Поток - "+threadName+"; ");
         jta.append("Значение переменной: " + value+"\n");
+//        System.out.println("Поток - "+threadName+"; "+"Значение переменной: " + value+"\n");
+
         notify();
         try {
             //Встаем на ожидание только когда есть условие для выполнения попеременности потока

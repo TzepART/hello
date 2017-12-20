@@ -62,6 +62,8 @@ public class ClassRoom {
         //вывести имя рандомного студента
         //вывести имя преподавателя
         jta.append(teacher.getName()+" - "+student.getName()+"\n");
+//        System.out.println(teacher.getName()+" - "+student.getName()+"\n");
+
 
         return student;
     }
